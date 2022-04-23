@@ -1,0 +1,31 @@
+﻿@page "/radarr"
+@inject HttpClient Http
+
+<PageTitle>Radarr</PageTitle>
+
+<h1>Radarr</h1>
+
+<p>Shows some Radarr data.</p>
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var log = await Http.GetAsync("192.168.1.222:7878/api/v3/log");
+        var content = await log.Content.ReadAsStringAsync();
+
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+    }
+
+    public class WeatherForecast
+    {
+        public DateTime Date { get; set; }
+
+        public int TemperatureC { get; set; }
+
+        public string? Summary { get; set; }
+
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
+}
