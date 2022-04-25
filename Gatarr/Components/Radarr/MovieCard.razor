@@ -1,0 +1,50 @@
+﻿@using Gatarr.Models.Radarr
+
+<style>
+    .demo-mat-card {
+        max-width: 400px;
+    }
+
+    .demo-mat-card-content {
+        padding: 1rem;
+    }
+
+    .demo-mat-card-clean-margin {
+        margin: 0px;
+    }
+</style>
+<MatCard class="demo-mat-card">
+    <MatCardContent>
+        @if (movie.images.FirstOrDefault(x => x.coverType == "poster") != null)
+        {
+            <MatCardMedia Wide="true" ImageUrl="@movie.images.FirstOrDefault(x => x.coverType == "poster").remoteUrl" />
+        }
+        <div class="demo-mat-card-content">
+            <MatHeadline6 class="demo-mat-card-clean-margin">
+                @movie.title (@movie.year)
+                <div>@movie.runtime</div>
+            </MatHeadline6>
+            <MatSubtitle2 class="demo-mat-card-clean-margin">
+                @movie.overview
+            </MatSubtitle2>
+        </div>
+
+        <MatBody2 class="demo-mat-card-content demo-mat-card-clean-margin">
+            <p><MatIcon Icon="@MatIconNames.Theaters"/>@movie.inCinemas</p>
+            <p><MatIcon Icon="@MatIconNames.Album"/>@movie.physicalRelease</p>
+            <p><MatIcon Icon="@MatIconNames.Web"/>@movie.digitalRelease</p>
+        </MatBody2>
+    </MatCardContent>
+    <MatCardActions>
+
+        <MatCardActionIcons>
+            <MatIconButton Icon="@MatIconNames.Info"></MatIconButton>
+            <MatIconButton Icon="@MatIconNames.Dashboard"></MatIconButton>
+        </MatCardActionIcons>
+    </MatCardActions>
+</MatCard>
+
+@code {
+    [Parameter]
+    public MovieResource movie { get; set; }
+}

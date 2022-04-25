@@ -1,6 +1,7 @@
 ﻿@page "/radarr"
 @using Gatarr.Services
 @using Gatarr.Models.Radarr
+@using Gatarr.Components.Radarr
 
 <PageTitle>Radarr</PageTitle>
 
@@ -12,66 +13,11 @@
 }
 else
 {
-    <ul>
-        @foreach (var movie in Movies)
-        {
-            
-            <li>
-                <style>
-                    .demo-mat-card {
-                        max-width: 400px;
-                    }
- 
-                    .demo-mat-card-content {
-                        padding: 1rem;
-                    }
- 
-                    .demo-mat-card-clean-margin {
-                        margin: 0px;
-                    }
-                </style>
-                <MatCard class="demo-mat-card">
-                    <MatCardContent>
-                        @if (movie.Images.FirstOrDefault(x => x.CoverType == "poster") != null)
-                        {
-                            <MatCardMedia Wide="false" ImageUrl="@movie.Images.FirstOrDefault(x => x.CoverType == "poster").RemoteUrl" />
-                        }
-                        <div class="demo-mat-card-content">
-                            <MatHeadline6 class="demo-mat-card-clean-margin">
-                                @movie.Title (@movie.Year)
-                                <div>@movie.Runtime</div>
-                            </MatHeadline6>
-                            <MatSubtitle2 class="demo-mat-card-clean-margin">
-                                @movie.Overview
-                            </MatSubtitle2>
-                        </div>
-
-                        <MatBody2 class="demo-mat-card-content demo-mat-card-clean-margin">
-                            <p><MatIcon Icon="@MatIconNames.Theaters"/>@movie.InCinemas</p>
-                            <p><MatIcon Icon="@MatIconNames.Album"/>@movie.PhysicalRelease</p>
-                            <p><MatIcon Icon="@MatIconNames.Web"/>@movie.DigitalRelease</p>
-                        </MatBody2>
-                    </MatCardContent>
-                    <MatCardActions>
-                        @*<MatCardActionButtons>
-                            <MatButton>Read</MatButton>
-                            <MatButton>Bookmark</MatButton>
-                        </MatCardActionButtons>*@
- 
-                        <MatCardActionIcons>
-                            <MatIconButton Icon="@MatIconNames.Favorite"></MatIconButton>
-                            <MatIconButton Icon="@MatIconNames.Dashboard"></MatIconButton>
-                        </MatCardActionIcons>
-                    </MatCardActions>
-                </MatCard>
-            </li>
-        }
-    </ul>
+    @foreach (var movie in Movies)
+    {
+        <MovieCard Movie="@movie" />
+    }
 }
-
-<p>
-    @Movies
-</p>
 
 @code {
 
