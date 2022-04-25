@@ -1,4 +1,6 @@
-﻿namespace Gatarr.Models.Radarr
+﻿using Humanizer;
+
+namespace Gatarr.Models.Radarr
 {
     public class MovieResource
     {
@@ -8,7 +10,7 @@
         public List<AlternateTitle> alternateTitles { get; set; }
         public int secondaryYearSourceId { get; set; }
         public string sortTitle { get; set; }
-        public object sizeOnDisk { get; set; }
+        public long sizeOnDisk { get; set; }
         public string status { get; set; }
         public string overview { get; set; }
         public DateTime inCinemas { get; set; }
@@ -39,7 +41,15 @@
         public MovieFile movieFile { get; set; }
         public int id { get; set; }
         public Collection collection { get; set; }
+
+        #region Display Properties
+        public string url => $"/radarr/movies/{id}";
+        public string sizeOnDiskDisplay => sizeOnDisk.Bytes().Humanize();
+        public string runtimeDisplay => runtime.Minutes().Humanize(precision: 2);
+
+        public string inCinemasDisplay => inCinemas.ToOrdinalWords();
+        public string physicalReleaseDisplay => physicalRelease.ToOrdinalWords();
+        public string digitalReleaseDisplay => digitalRelease.ToOrdinalWords();
+        #endregion
     }
-
-
 }
