@@ -2,7 +2,7 @@
 
 <style>
     .demo-mat-card {
-        max-width: 400px;
+        max-width: 300px;
     }
 
     .demo-mat-card-content {
@@ -22,24 +22,25 @@
         <div class="demo-mat-card-content">
             <MatHeadline6 class="demo-mat-card-clean-margin">
                 @movie.title (@movie.year)
-                <div>@movie.runtime</div>
             </MatHeadline6>
+            <MatSubtitle1>@movie.studio</MatSubtitle1>
+            <MatSubtitle1>@movie.runtimeDisplay</MatSubtitle1>
             <MatSubtitle2 class="demo-mat-card-clean-margin">
                 @movie.overview
             </MatSubtitle2>
         </div>
 
         <MatBody2 class="demo-mat-card-content demo-mat-card-clean-margin">
-            <p><MatIcon Icon="@MatIconNames.Theaters"/>@movie.inCinemas</p>
-            <p><MatIcon Icon="@MatIconNames.Album"/>@movie.physicalRelease</p>
-            <p><MatIcon Icon="@MatIconNames.Web"/>@movie.digitalRelease</p>
+            <p><MatIcon Icon="@MatIconNames.Theaters"/>@movie.inCinemasDisplay</p>
+            <p><MatIcon Icon="@MatIconNames.Album"/>@movie.physicalReleaseDisplay</p>
+            <p><MatIcon Icon="@MatIconNames.Web"/>@movie.digitalReleaseDisplay</p>
         </MatBody2>
     </MatCardContent>
     <MatCardActions>
-
         <MatCardActionIcons>
-            <MatIconButton Icon="@MatIconNames.Info"></MatIconButton>
-            <MatIconButton Icon="@MatIconNames.Dashboard"></MatIconButton>
+            <NavLink href="@movie.url">
+                <MatIconButton Icon="@MatIconNames.Info"/>
+            </NavLink>
         </MatCardActionIcons>
     </MatCardActions>
 </MatCard>
