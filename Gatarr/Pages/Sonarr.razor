@@ -1,8 +1,34 @@
 ﻿@page "/sonarr"
-@inject HttpClient Http
+@using Gatarr.Services
+@using Gatarr.Models.Sonarr
+@using Gatarr.Components.Sonarr
 
 <PageTitle>Sonarr</PageTitle>
 
 <h1>Sonarr</h1>
 
-<p>Shows some Sonarr data.</p>
+@if (Series == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var showSeries in Series)
+    {
+        <SeriesCard Series="@showSeries" />
+    }
+}
+
+@code {
+
+    [Inject]
+    public ISonarrService SonarrService { get; set; }
+
+    public List<Series> Series { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Series = await SonarrService.GetSeries();
+    }
+}
+
