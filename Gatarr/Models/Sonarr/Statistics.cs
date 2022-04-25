@@ -1,4 +1,4 @@
-﻿namespace Gatarr.Models;
+﻿namespace Gatarr.Models.Sonarr;
 
 public class Statistics
 {
