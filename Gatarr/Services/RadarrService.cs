@@ -5,7 +5,6 @@ namespace Gatarr.Services
     public interface IRadarrService
     {
         Task<HttpResponseMessage> GetLog();
-
         Task<List<MovieResource>> GetMovies();
     }
 
@@ -32,10 +31,12 @@ namespace Gatarr.Services
 
             if (response?.Content == null || !response.IsSuccessStatusCode)
             {
-                return new List<MovieResource>();
+                return movies;
             }
 
-            return await response.Content.ReadFromJsonAsync<List<MovieResource>>();
+            movies = await response.Content.ReadFromJsonAsync<List<MovieResource>>();
+
+            return movies ?? new List<MovieResource>();
         }
     }
 }
