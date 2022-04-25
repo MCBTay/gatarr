@@ -1,0 +1,41 @@
+﻿@page "/radarr/movies/{id}"
+@using Gatarr.Services
+@using Gatarr.Models.Radarr
+
+@if (CurrentMovie == null)
+{
+    <PageTitle>Loading...s</PageTitle>
+
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <PageTitle>@CurrentMovie.title</PageTitle>
+
+    <h1>@CurrentMovie.title</h1>
+    <h3>@CurrentMovie.year - @CurrentMovie.studio</h3>
+    <p>@CurrentMovie.overview</p>
+    <p>@CurrentMovie.genres</p>
+    <p>@CurrentMovie.runtimeDisplay</p>
+    <p>@CurrentMovie.images</p>
+    <p><b>Theater Release Date:</b>@CurrentMovie.inCinemasDisplay</p>
+    <p><b>Physical Release Date:</b> @CurrentMovie.physicalReleaseDisplay</p>
+    <p><b>Digital Release Date:</b>@CurrentMovie.digitalReleaseDisplay</p>
+    <p>@CurrentMovie.ratings</p>
+    <p>@CurrentMovie.sizeOnDiskDisplay</p>
+}
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    [Inject]
+    public IRadarrService RadarrService { get; set; }
+
+    public MovieResource CurrentMovie { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentMovie = await RadarrService.GetMovie(id);
+    }
+}
