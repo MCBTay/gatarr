@@ -13,10 +13,16 @@
 }
 else
 {
-    @foreach (var movie in Movies)
-    {
-        <MovieCard Movie="@movie" />
-    }
+    <div class="mat-layout-grid">
+        <div class="mat-layout-grid-inner">
+            @foreach (var movie in Movies)
+            {
+                <div class="mat-layout-grid-cell mat-layout-grid-cell-span-2">
+                    <MovieCard Movie="@movie" />
+                </div>
+            }
+        </div>
+    </div>
 }
 
 @code {
