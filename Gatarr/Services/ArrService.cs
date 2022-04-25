@@ -24,7 +24,7 @@
             ApiKey = Configuration[$"{Name}:ApiKey"];
 
             HttpClient = httpClientFactory.CreateClient();
-            HttpClient.BaseAddress = new Uri($"http://{Host}:{Port}:/api/v3/");
+            HttpClient.BaseAddress = new Uri($"http://{Host}:{Port}/api/v3/");
             HttpClient.DefaultRequestHeaders.Add("X-Api-Key", ApiKey);
         }
     }
