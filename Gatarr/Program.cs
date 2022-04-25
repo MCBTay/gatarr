@@ -1,12 +1,16 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Http.Extensions;
+using Gatarr.Services;
+using MatBlazor;
+using Microsoft.Extensions.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddHttpClient();
+builder.Services.AddMatBlazor();
+
+builder.Services.AddSingleton<IRadarrService, RadarrService>();
 
 var app = builder.Build();
 
@@ -26,7 +30,5 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-
-app.Services.
 
 app.Run();
