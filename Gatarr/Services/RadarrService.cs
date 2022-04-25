@@ -6,6 +6,7 @@ namespace Gatarr.Services
     {
         Task<HttpResponseMessage> GetLog();
         Task<List<MovieResource>> GetMovies();
+        Task<MovieResource> GetMovie(string id);
     }
 
     public class RadarrService : ArrService, IRadarrService
@@ -37,6 +38,22 @@ namespace Gatarr.Services
             movies = await response.Content.ReadFromJsonAsync<List<MovieResource>>();
 
             return movies ?? new List<MovieResource>();
+        }
+
+        public async Task<MovieResource> GetMovie(string id)
+        {
+            var movie = new MovieResource();
+
+            var response = await HttpClient.GetAsync($"movie/{id}");
+
+            if (response?.Content == null || !response.IsSuccessStatusCode)
+            {
+                return movie;
+            }
+
+            movie = await response.Content.ReadFromJsonAsync<MovieResource>();
+
+            return movie ?? new MovieResource();
         }
     }
 }
