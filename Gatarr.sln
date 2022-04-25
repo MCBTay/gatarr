@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.32014.148
+VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gatarr", "Gatarr\Gatarr.csproj", "{F553DC47-BAA1-4872-B066-DD0A94C644BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gatarr", "Gatarr\Gatarr.csproj", "{373ABB3C-7230-4799-B58B-F8836D968D63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F553DC47-BAA1-4872-B066-DD0A94C644BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F553DC47-BAA1-4872-B066-DD0A94C644BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F553DC47-BAA1-4872-B066-DD0A94C644BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F553DC47-BAA1-4872-B066-DD0A94C644BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{373ABB3C-7230-4799-B58B-F8836D968D63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{373ABB3C-7230-4799-B58B-F8836D968D63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{373ABB3C-7230-4799-B58B-F8836D968D63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{373ABB3C-7230-4799-B58B-F8836D968D63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {682E6B3D-831C-4358-B082-174F606A0BF4}
+		SolutionGuid = {938DB467-A335-4E0C-A6D6-32C65585841E}
 	EndGlobalSection
 EndGlobal
