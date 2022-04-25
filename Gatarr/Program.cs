@@ -11,6 +11,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddMatBlazor();
 
 builder.Services.AddSingleton<IRadarrService, RadarrService>();
+builder.Services.AddSingleton<ISonarrService, SonarrService>();
 
 var app = builder.Build();
 
