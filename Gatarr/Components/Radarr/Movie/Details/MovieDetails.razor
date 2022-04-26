@@ -1,0 +1,105 @@
+﻿@using Gatarr.Models.Radarr
+@using Humanizer
+@using Image = Gatarr.Models.Radarr.Image
+
+<style>
+    .movie,
+    .movie h1 {
+        color: white;
+    }
+
+    .movieDetails span {
+        font-size: 20px;
+    }
+
+    .certification {
+        margin-right: 15px;
+        padding: 0 5px;
+        border: 1px solid;
+        border-radius: 5px;
+    }
+
+    .moviePoster {
+        border-style: 0;
+        width: 217px;
+        height: 319px;
+        display: block;
+        margin-right: 25px;
+    }
+
+    .fanArt,
+    .movieDetailsRoot {
+        background-image: url(@Fanart?.remoteUrl);
+        background-size: cover;
+    }
+
+    .movieDetailsRoot {
+        width: 100%;
+        height: 375px;
+        position: relative;
+    }
+
+    .movieDetailsContent {
+        padding: 30px;
+    }
+
+    .fanArtOverlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: 0.7;
+    }
+</style>
+
+<div class="movieDetailsRoot">
+    <div class="fanArtOverlay" />
+    <div class="movieDetailsContent">
+        <Row>
+            <GridCol Span="6">
+                <Image Class="moviePoster" Src="@Poster?.remoteUrl" />
+            </GridCol>
+            <GridCol Span="18">
+                <div class="movie">
+                    <h1>@Movie.title</h1>
+                    <div class="movieDetails">
+                        <span class="certification">@Movie.certification</span>
+                        
+                        <Popover ContentTemplate="@_releaseContent" Title="Release Dates" Placement="@Placement.Bottom" Trigger="@(new[] { Trigger.Hover })">
+                            <span class="release">@Movie.year</span>
+                        </Popover>
+
+                        <span class="runtime">@Movie.runtimeDisplay</span>
+                    </div>
+                    <MovieRatings Ratings="@Movie.ratings" />
+                    <div>
+                        <span>@Movie.path</span>
+                        <span>@Movie.status</span>
+                        <span>@Movie.qualityProfileId</span>
+                        <span>@Movie.sizeOnDisk.Bytes().Humanize()</span>
+                        <span>@Movie.studio</span>
+                        <span>@string.Join(", ", @Movie.genres)</span>
+                    </div>
+                    <div class="overview">
+                        <span>@Movie.overview</span>
+                    </div>
+                </div>
+            </GridCol>
+        </Row>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public MovieResource Movie { get; set; }
+
+    public Image Poster => Movie?.images?.FirstOrDefault(x => x.coverType == "poster");
+    public Image Fanart => Movie?.images?.FirstOrDefault(x => x.coverType == "fanart");
+
+    private RenderFragment _releaseContent =>
+        @<div>
+            <p><b>Theater Release Date:</b>@Movie.inCinemasDisplay</p>
+            <p><b>Physical Release Date:</b> @Movie.physicalReleaseDisplay</p>
+            <p><b>Digital Release Date:</b>@Movie.digitalReleaseDisplay</p>
+        </div>;
+}
