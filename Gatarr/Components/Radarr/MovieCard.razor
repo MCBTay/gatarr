@@ -1,30 +1,106 @@
 ﻿@using Gatarr.Models.Radarr
+@using Humanizer
 @using Microsoft.AspNetCore.Http.Extensions
 
-<Card Style="width: 300px;">
-    <Body>
-    @if (Movie.images.FirstOrDefault(x => x.coverType == "poster") != null)
-    {
-        <AntDesign.Image Src="@Movie.images.FirstOrDefault(x => x.coverType == "poster").remoteUrl"/>
+<style>
+    .crewHeadshot {
+        width: 127px;
+        height: 187px;
     }
-    <div class="demo-mat-card-content">
-        <Title Level="4" class="demo-mat-card-clean-margin">
-            @Movie.title (@Movie.year)
-        </Title>
-        <Button
-            OnClick="InfoButtonOnClick"
-            Type="@ButtonType.Primary"
-            Shape="@ButtonShape.Circle">
-            <Icon Type="info-circle" Theme="outline"/>
-        </Button>
-        <p>@Movie.studio</p>
-        <p>@Movie.runtimeDisplay</p>
-        <p class="demo-mat-card-clean-margin">
-            @Movie.overview
-        </p>
-    </div>
-    </Body>
-</Card>
+
+    .emptyCrewHeadshot {
+        position: relative;
+        display: block;
+        background-color: #333;
+    }
+
+    .crewHeadshotOverlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        width: 127px;
+        height: 187px;
+        color: #f5f7fa;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .credit .personName {
+        font-weight: bold;
+    }
+
+    .movie .movieTitle,
+    .movie .runtime,
+    .movie .inCinemas,
+    .movie .physicalRelease,
+    .movie .digitalRelease {
+        font-size: 14px;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .movie .runtime,
+    .movie .inCinemas,
+    .movie .physicalRelease,
+    .movie .digitalRelease {
+        font-size: 12px;
+    }
+
+    .movie table td .fa {
+        font-size: 14px;
+        margin-right: 5px;
+    }
+
+    .movie .ant-card-body {
+        padding: 10px;
+    }
+
+
+</style>
+
+<div class="movie">
+    <a href="/radarr/movies/@Movie.id">
+        <Card Hoverable Style="width: 200px;" Cover="GetPosterTemplate()">
+            <Body>
+            <div>
+                <div class="movieTitle">@Movie.title (@Movie.year)</div>
+                <div class="runtime">@Movie.runtime.Minutes().Humanize(precision: 2)</div>
+                
+                <table style="margin-left: auto; margin-right: auto;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center"><span class="fa fa-ticket" /></td>
+                            <td class="inCinemas">@Movie.inCinemas.ToOrdinalWords()</td>
+                        </tr>
+
+                        @if (Movie.physicalRelease != DateTime.MinValue)
+                        {
+                            <tr>
+                                <td style="text-align: center"><span class="fa fa-compact-disc"/></td>
+                                <td class="physicalRelease">@Movie.physicalRelease.ToOrdinalWords()</td>
+                            </tr>
+                        }
+
+                        @if (Movie.digitalRelease != DateTime.MinValue)
+                        {
+                            <tr>
+                                <td style="text-align: center"><span class="fa fa-file-video"/></td>
+                                <td class="physicalRelease">@Movie.digitalRelease.ToOrdinalWords()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            </Body>
+        </Card>
+    </a>
+</div>
 
 @code {
     [Inject]
@@ -36,6 +112,11 @@
     private void InfoButtonOnClick(MouseEventArgs obj)
     {
         NavigationManager.NavigateTo($"/radarr/movies/{Movie.id}");
+    }
+
+    public RenderFragment GetPosterTemplate()
+    {
+        return @<img alt="poster" class="poster" src="@Movie?.images?.FirstOrDefault(x => x.coverType == "poster").remoteUrl" />;
     }
 
 }
