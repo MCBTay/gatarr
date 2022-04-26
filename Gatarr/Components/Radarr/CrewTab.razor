@@ -1,0 +1,22 @@
+﻿@using Gatarr.Models.Radarr
+
+@if (Crew == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <Space Size=@(("8", "16")) Wrap>
+        @foreach (var crewMember in Crew)
+        {
+            <SpaceItem>
+                <CreditCard credit="@crewMember" />
+            </SpaceItem>
+        }
+    </Space>
+}
+
+@code {
+    [Parameter]
+    public List<Credit> Crew { get; set; }
+}

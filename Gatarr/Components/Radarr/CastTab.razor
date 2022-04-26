@@ -1,0 +1,22 @@
+﻿@using Gatarr.Models.Radarr
+
+@if (Cast == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <Space Size=@(("8", "16")) Wrap>
+        @foreach (var castMember in Cast)
+        {
+            <SpaceItem>
+                <CreditCard credit="@castMember" />
+            </SpaceItem>
+        }
+    </Space>
+}
+
+@code {
+    [Parameter]
+    public List<Credit> Cast { get; set; }
+}
