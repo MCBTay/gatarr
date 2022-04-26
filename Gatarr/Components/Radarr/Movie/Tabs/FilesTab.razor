@@ -1,0 +1,39 @@
+﻿@using Gatarr.Models.Radarr
+@using Humanizer
+
+@if (MovieFiles == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <Table @ref="table"
+           TItem="MovieFile"
+           DataSource="@MovieFiles"
+           Total="_total"
+           @bind-PageIndex="_pageIndex"
+           @bind-PageSize="_pageSize">
+        <Column Title="Relative Path" TData="string">@context.relativePath</Column>
+        <Column Title="Video Codec" TData="string">@context.mediaInfo.videoCodec</Column>
+        <Column Title="Audio Info" TData="string">@context.mediaInfo.audioCodec - @context.mediaInfo.audioChannels</Column>
+        <Column Title="Size" TData="string">@context.size.Bytes().Humanize()</Column>
+        <Column Title="Language" TData="string">@string.Join(", ", context.languages.Select(x => x.name))</Column>
+        <Column Title="Quality" TData="string">@context.quality.name</Column>
+        <Column Title="Release Group" TData="string">@context.releaseGroup</Column>
+        <Column Title="Formats" TData="string">@string.Join(", ", context.customFormats.Select(x => x.name))</Column>
+    </Table>
+
+    <p>Extra file stuff here??</p>
+}
+
+
+@code {
+    [Parameter]
+    public List<MovieFile> MovieFiles { get; set; }
+
+    ITable table;
+
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total => MovieFiles?.Count ?? 0;
+}
