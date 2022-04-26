@@ -1,0 +1,35 @@
+﻿@using Gatarr.Models.Radarr
+@using AntDesign.TableModels
+
+@if (AlternateTitles == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <Table
+        TItem="AlternateTitle"
+        DataSource="@AlternateTitles"
+        Total="_total"
+        @bind-PageIndex="_pageIndex"
+        @bind-PageSize="_pageSize">
+
+        <Column @bind-Field="@context.title" Sortable/>
+        <Column @bind-Field="@context.language.name" Sortable/>
+        <Column @bind-Field="@context.sourceType" Sortable/>
+    </Table>
+    <br />
+    <p>PageIndex: @_pageIndex | PageSize: @_pageSize | Total: @_total</p>
+
+    <Button OnClick="()=> { _pageIndex--; }">Previous page</Button>
+    <Button OnClick="()=> { _pageIndex++; }">Next Page</Button>
+}
+
+@code {
+    [Parameter]
+    public List<AlternateTitle> AlternateTitles { get; set; }
+
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total => AlternateTitles.Count;
+}
