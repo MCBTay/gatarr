@@ -1,6 +1,4 @@
 using Gatarr.Services;
-using MatBlazor;
-using Microsoft.Extensions.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
-builder.Services.AddMatBlazor();
+builder.Services.AddAntDesign();
 
 builder.Services.AddSingleton<IRadarrService, RadarrService>();
 builder.Services.AddSingleton<ISonarrService, SonarrService>();
