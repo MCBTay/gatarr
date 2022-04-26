@@ -1,0 +1,29 @@
+﻿@using Gatarr.Models.Radarr
+@using AntDesign.TableModels
+
+@if (AlternateTitles == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    foreach (var title in @AlternateTitles)
+    {
+        <div>@title.title</div>
+    }
+}
+
+Testing!
+
+@code {
+    [Parameter]
+    public List<AlternateTitle> AlternateTitles { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        var titles = AlternateTitles;
+        int x = 5;
+
+        return base.OnInitializedAsync();
+    }
+}
