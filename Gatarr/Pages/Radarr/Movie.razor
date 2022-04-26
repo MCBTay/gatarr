@@ -1,5 +1,6 @@
 ﻿@page "/radarr/movies/{id}"
 @using Gatarr.Services
+@using Gatarr.Components.Radarr
 @using Gatarr.Models.Radarr
 
 @if (CurrentMovie == null)
@@ -12,17 +13,28 @@ else
 {
     <PageTitle>@CurrentMovie.title</PageTitle>
 
-    <h1>@CurrentMovie.title</h1>
-    <h3>@CurrentMovie.year - @CurrentMovie.studio</h3>
-    <p>@CurrentMovie.overview</p>
-    <p>@CurrentMovie.genres</p>
-    <p>@CurrentMovie.runtimeDisplay</p>
-    <p>@CurrentMovie.images</p>
-    <p><b>Theater Release Date:</b>@CurrentMovie.inCinemasDisplay</p>
-    <p><b>Physical Release Date:</b> @CurrentMovie.physicalReleaseDisplay</p>
-    <p><b>Digital Release Date:</b>@CurrentMovie.digitalReleaseDisplay</p>
-    <p>@CurrentMovie.ratings</p>
-    <p>@CurrentMovie.sizeOnDiskDisplay</p>
+    <MovieDetails Movie="@CurrentMovie" />
+
+    <Tabs DefaultActiveKey="1">
+        <TabPane Key="1" Tab="History">
+            <HistoryTab />
+        </TabPane>
+        <TabPane Key="2" Tab="Search">
+            <SearchTab />
+        </TabPane>
+        <TabPane Key="3" Tab="Files">
+            <FilesTab />
+        </TabPane>
+        <TabPane Key="4" Tab="Titles">
+            <AlternateTitlesTab AlternateTitles="@CurrentMovie.alternateTitles" />
+        </TabPane>
+        <TabPane Key="5" Tab="Cast">
+            <CastTab Cast="@Cast" />
+        </TabPane>
+        <TabPane Key="6" Tab="Crew">
+            <CrewTab Crew="@Crew"/>
+        </TabPane>
+    </Tabs>
 }
 
 @code {
@@ -34,8 +46,13 @@ else
 
     public MovieResource CurrentMovie { get; set; }
 
+    public List<Credit> Credits { get; set; }
+    public List<Credit> Cast => Credits.Where(x => x.type == "cast").ToList();
+    public List<Credit> Crew => Credits.Where(x => x.type == "crew").ToList();
+
     protected override async Task OnInitializedAsync()
     {
         CurrentMovie = await RadarrService.GetMovie(id);
+        Credits = await RadarrService.GetCredits(id);
     }
 }
