@@ -7,23 +7,26 @@
 }
 else
 {
-    foreach (var title in @AlternateTitles)
-    {
-        <div>@title.title</div>
-    }
+    <Table @ref="table"
+           TItem="AlternateTitle"
+           DataSource="@AlternateTitles"
+           Total="_total"
+           @bind-PageIndex="_pageIndex"
+           @bind-PageSize="_pageSize">
+        <Column Title="Alternative Title" TData="string">@context.title</Column>
+        <Column Title="Language" TData="string">@context.language.name</Column>
+        <Column Title="Type" TData="string">@context.sourceType</Column>
+    </Table>
 }
 
-Testing!
 
 @code {
     [Parameter]
     public List<AlternateTitle> AlternateTitles { get; set; }
 
-    protected override Task OnInitializedAsync()
-    {
-        var titles = AlternateTitles;
-        int x = 5;
+    ITable table;
 
-        return base.OnInitializedAsync();
-    }
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total => AlternateTitles?.Count ?? 0;
 }
