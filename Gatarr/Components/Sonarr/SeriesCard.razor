@@ -1,50 +1,25 @@
 ﻿@using Gatarr.Models.Sonarr
 
-<style>
-    .demo-mat-card {
-        max-width: 400px;
-    }
 
-    .demo-mat-card-content {
-        padding: 1rem;
-    }
-
-    .demo-mat-card-clean-margin {
-        margin: 0px;
-    }
-</style>
-<MatCard class="demo-mat-card">
-    <MatCardContent>
-        @if (series.images.FirstOrDefault(x => x.coverType == "poster") != null)
+<Card Style="width:300px;">
+    <Body>
+        @if (Series.images.FirstOrDefault(x => x.coverType == "poster") != null)
         {
-            <MatCardMedia Wide="true" ImageUrl="@series.images.FirstOrDefault(x => x.coverType == "poster").remoteUrl" />
+            <AntDesign.Image Src="@Series.images.FirstOrDefault(x => x.coverType == "poster").remoteUrl" />
         }
         <div class="demo-mat-card-content">
-            <MatHeadline6 class="demo-mat-card-clean-margin">
-                @series.title (@series.year)
-                <div>@series.runtime</div>
-            </MatHeadline6>
-            <MatSubtitle2 class="demo-mat-card-clean-margin">
-                @series.overview
-            </MatSubtitle2>
+            <Title Level="4">
+                @Series.title (@Series.year)
+                <div>@Series.runtime</div>
+            </Title>
+            <p>
+                @Series.overview
+            </p>
         </div>
-
-        @*<MatBody2 class="demo-mat-card-content demo-mat-card-clean-margin">
-            <p><MatIcon Icon="@MatIconNames.Theaters"/>@series.inCinemas</p>
-            <p><MatIcon Icon="@MatIconNames.Album"/>@series.physicalRelease</p>
-            <p><MatIcon Icon="@MatIconNames.Web"/>@series.digitalRelease</p>
-        </MatBody2>*@
-    </MatCardContent>
-    <MatCardActions>
-
-        <MatCardActionIcons>
-            <MatIconButton Icon="@MatIconNames.Info"></MatIconButton>
-            <MatIconButton Icon="@MatIconNames.Dashboard"></MatIconButton>
-        </MatCardActionIcons>
-    </MatCardActions>
-</MatCard>
+    </Body>
+</Card>
 
 @code {
     [Parameter]
-    public Series series { get; set; }
+    public Series Series { get; set; }
 }

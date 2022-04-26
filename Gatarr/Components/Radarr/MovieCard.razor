@@ -1,51 +1,41 @@
 ﻿@using Gatarr.Models.Radarr
+@using Microsoft.AspNetCore.Http.Extensions
 
-<style>
-    .demo-mat-card {
-        max-width: 300px;
+<Card Style="width: 300px;">
+    <Body>
+    @if (Movie.images.FirstOrDefault(x => x.coverType == "poster") != null)
+    {
+        <AntDesign.Image Src="@Movie.images.FirstOrDefault(x => x.coverType == "poster").remoteUrl"/>
     }
-
-    .demo-mat-card-content {
-        padding: 1rem;
-    }
-
-    .demo-mat-card-clean-margin {
-        margin: 0px;
-    }
-</style>
-<MatCard class="demo-mat-card">
-    <MatCardContent>
-        @if (movie.images.FirstOrDefault(x => x.coverType == "poster") != null)
-        {
-            <MatCardMedia Wide="true" ImageUrl="@movie.images.FirstOrDefault(x => x.coverType == "poster").remoteUrl" />
-        }
-        <div class="demo-mat-card-content">
-            <MatHeadline6 class="demo-mat-card-clean-margin">
-                @movie.title (@movie.year)
-            </MatHeadline6>
-            <MatSubtitle1>@movie.studio</MatSubtitle1>
-            <MatSubtitle1>@movie.runtimeDisplay</MatSubtitle1>
-            <MatSubtitle2 class="demo-mat-card-clean-margin">
-                @movie.overview
-            </MatSubtitle2>
-        </div>
-
-        <MatBody2 class="demo-mat-card-content demo-mat-card-clean-margin">
-            <p><MatIcon Icon="@MatIconNames.Theaters"/>@movie.inCinemasDisplay</p>
-            <p><MatIcon Icon="@MatIconNames.Album"/>@movie.physicalReleaseDisplay</p>
-            <p><MatIcon Icon="@MatIconNames.Web"/>@movie.digitalReleaseDisplay</p>
-        </MatBody2>
-    </MatCardContent>
-    <MatCardActions>
-        <MatCardActionIcons>
-            <NavLink href="@movie.url">
-                <MatIconButton Icon="@MatIconNames.Info"/>
-            </NavLink>
-        </MatCardActionIcons>
-    </MatCardActions>
-</MatCard>
+    <div class="demo-mat-card-content">
+        <Title Level="4" class="demo-mat-card-clean-margin">
+            @Movie.title (@Movie.year)
+        </Title>
+        <Button
+            OnClick="InfoButtonOnClick"
+            Type="@ButtonType.Primary"
+            Shape="@ButtonShape.Circle">
+            <Icon Type="info-circle" Theme="outline"/>
+        </Button>
+        <p>@Movie.studio</p>
+        <p>@Movie.runtimeDisplay</p>
+        <p class="demo-mat-card-clean-margin">
+            @Movie.overview
+        </p>
+    </div>
+    </Body>
+</Card>
 
 @code {
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
     [Parameter]
-    public MovieResource movie { get; set; }
+    public MovieResource Movie { get; set; }
+
+    private void InfoButtonOnClick(MouseEventArgs obj)
+    {
+        NavigationManager.NavigateTo($"/radarr/movies/{Movie.id}");
+    }
+
 }
