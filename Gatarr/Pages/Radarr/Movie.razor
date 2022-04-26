@@ -53,13 +53,16 @@ else
 
     public List<MovieFile> MovieFiles { get; set; }
 
+    public List<MovieHistory> MovieHistory { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         await Task.WhenAll(new List<Task>
         {
             LoadMovie(),
             LoadCredits(),
-            LoadFiles()
+            LoadFiles(),
+            LoadHistory()
         });
     }
 
@@ -76,5 +79,10 @@ else
     private async Task LoadFiles()
     {
         MovieFiles = await RadarrService.GetFiles(id);
+    }
+
+    private async Task LoadHistory()
+    {
+        MovieHistory = await RadarrService.GetHistory(id);
     }
 }
