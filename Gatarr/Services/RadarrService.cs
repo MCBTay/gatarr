@@ -9,6 +9,7 @@ namespace Gatarr.Services
         Task<MovieResource> GetMovie(string id);
         Task<List<Credit>> GetCredits(string id);
         Task<List<MovieFile>> GetFiles(string id);
+        Task<List<MovieHistory>> GetHistory(string id);
     }
 
     public class RadarrService : ArrService, IRadarrService
@@ -88,6 +89,22 @@ namespace Gatarr.Services
             movieFiles = await response.Content.ReadFromJsonAsync<List<MovieFile>>();
 
             return movieFiles ?? new List<MovieFile>();
+        }
+
+        public async Task<List<MovieHistory>> GetHistory(string movieId)
+        {
+            var history = new List<MovieHistory>();
+
+            var response = await HttpClient.GetAsync($"history?movieId={movieId}");
+
+            if (response?.Content == null || !response.IsSuccessStatusCode)
+            {
+                return history;
+            }
+
+            history = await response.Content.ReadFromJsonAsync<List<MovieHistory>>();
+
+            return history ?? new List<MovieHistory>();
         }
     }
 }
