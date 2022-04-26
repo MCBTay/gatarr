@@ -1,6 +1,7 @@
 ﻿@page "/radarr/movies/{id}"
 @using Gatarr.Services
-@using Gatarr.Components.Radarr
+@using Gatarr.Components.Radarr.Movie.Details;
+@using Gatarr.Components.Radarr.Movie.Tabs;
 @using Gatarr.Models.Radarr
 
 @if (CurrentMovie == null)
@@ -23,7 +24,7 @@ else
             <SearchTab />
         </TabPane>
         <TabPane Key="3" Tab="Files">
-            <FilesTab />
+            <FilesTab MovieFiles="@MovieFiles" />
         </TabPane>
         <TabPane Key="4" Tab="Titles">
             <AlternateTitlesTab AlternateTitles="@CurrentMovie.alternateTitles" />
@@ -50,9 +51,30 @@ else
     public List<Credit> Cast => Credits.Where(x => x.type == "cast").ToList();
     public List<Credit> Crew => Credits.Where(x => x.type == "crew").ToList();
 
+    public List<MovieFile> MovieFiles { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
+        await Task.WhenAll(new List<Task>
+        {
+            LoadMovie(),
+            LoadCredits(),
+            LoadFiles()
+        });
+    }
+
+    private async Task LoadMovie()
+    {
         CurrentMovie = await RadarrService.GetMovie(id);
+    }
+
+    private async Task LoadCredits()
+    {
         Credits = await RadarrService.GetCredits(id);
+    }
+
+    private async Task LoadFiles()
+    {
+        MovieFiles = await RadarrService.GetFiles(id);
     }
 }
