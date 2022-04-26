@@ -5,7 +5,7 @@ public class MovieFile
     public int movieId { get; set; }
     public string relativePath { get; set; }
     public string path { get; set; }
-    public object size { get; set; }
+    public long size { get; set; }
     public DateTime dateAdded { get; set; }
     public int indexerFlags { get; set; }
     public Quality quality { get; set; }
@@ -17,4 +17,5 @@ public class MovieFile
     public string sceneName { get; set; }
     public string originalFilePath { get; set; }
     public string releaseGroup { get; set; }
+    public List<CustomFormat> customFormats { get; set; }
 }
