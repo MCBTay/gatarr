@@ -47,7 +47,6 @@ else
 
     public MovieResource CurrentMovie { get; set; }
 
-
     protected override async Task OnInitializedAsync()
     {
         CurrentMovie = await RadarrService.GetMovie(id);
