@@ -1,4 +1,6 @@
-﻿namespace Gatarr.Models.Radarr
+﻿using Gatarr.Models.Shared;
+
+namespace Gatarr.Models.Radarr
 {
     public class Credit
     {

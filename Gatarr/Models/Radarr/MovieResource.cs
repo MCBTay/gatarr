@@ -1,4 +1,5 @@
-﻿using Humanizer;
+﻿using Gatarr.Models.Shared;
+using Humanizer;
 
 namespace Gatarr.Models.Radarr
 {
