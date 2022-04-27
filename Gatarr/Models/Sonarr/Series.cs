@@ -1,4 +1,6 @@
-﻿namespace Gatarr.Models.Sonarr;
+﻿using Gatarr.Models.Shared;
+
+namespace Gatarr.Models.Sonarr;
 
 public class Series
 {
