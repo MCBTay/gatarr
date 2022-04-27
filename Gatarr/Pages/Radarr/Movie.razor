@@ -14,26 +14,26 @@ else
 {
     <PageTitle>@CurrentMovie.title</PageTitle>
 
-    <MovieDetails Movie="@CurrentMovie" />
+    <MovieDetails Movie="CurrentMovie" />
 
     <Tabs DefaultActiveKey="1">
         <TabPane Key="1" Tab="History">
-            <HistoryTab />
+            <HistoryTab History="MovieHistory"/>
         </TabPane>
         <TabPane Key="2" Tab="Search">
             <SearchTab />
         </TabPane>
         <TabPane Key="3" Tab="Files">
-            <FilesTab MovieFiles="@MovieFiles" />
+            <FilesTab MovieFiles="MovieFiles" />
         </TabPane>
         <TabPane Key="4" Tab="Titles">
-            <AlternateTitlesTab AlternateTitles="@CurrentMovie.alternateTitles" />
+            <AlternateTitlesTab AlternateTitles="CurrentMovie.alternateTitles" />
         </TabPane>
         <TabPane Key="5" Tab="Cast">
-            <CastTab Cast="@Cast" />
+            <CastTab Cast="Cast" />
         </TabPane>
         <TabPane Key="6" Tab="Crew">
-            <CrewTab Crew="@Crew"/>
+            <CrewTab Crew="Crew"/>
         </TabPane>
     </Tabs>
 }
