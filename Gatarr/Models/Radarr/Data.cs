@@ -25,5 +25,8 @@
         public string protocol { get; set; }
         public string indexerFlags { get; set; }
         public string indexerId { get; set; }
+        public string downloadId { get; set; }
+        public string message { get; set; }
+        public string reason { get; set; }
     }
 }
