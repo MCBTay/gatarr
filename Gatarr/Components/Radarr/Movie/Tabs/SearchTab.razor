@@ -1,5 +1,57 @@
-﻿<h3>SearchTab</h3>
+﻿@using Gatarr.Models.Radarr
+@using Gatarr.Services
+@using Humanizer
+@using Humanizer.Localisation
+
+@if (Releases == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <Table @ref="table"
+           TItem="ReleaseResource"
+           DataSource="@Releases"
+           Total="_total"
+           @bind-PageIndex="_pageIndex"
+           @bind-PageSize="_pageSize">
+        <Column Title="Age" TData="string">@context.ageMinutes.Minutes().Humanize(maxUnit: TimeUnit.Day)</Column>
+        <Column Title="Title" TData="string">@context.title</Column>
+        <Column Title="Indexer" TData="string">@context.indexer</Column>
+        <Column Title="History" TData="string">@context.indexer</Column>
+        <Column Title="Size" TData="string">@context.size.Bytes().Humanize()</Column>
+        <Column Title="Peers" TData="string"></Column>
+        <Column Title="Language" TData="string">@string.Join(", ", context.languages.Select(x => x.name))</Column>
+        <Column Title="Quality" TData="string">@context.quality.name</Column>
+        <Column Title="Formats" TData="string">@string.Join(", ", context.customFormats.Select(x => x.name))</Column>
+        @*<Column Title="Video Codec" TData="string">@context.mediaInfo.videoCodec</Column>
+        <Column Title="Audio Info" TData="string">@context.mediaInfo.audioCodec - @context.mediaInfo.audioChannels</Column>
+        <Column Title="Size" TData="string">@context.size.Bytes().Humanize()</Column>
+        <Column Title="Languages" TData="string">@string.Join(", ", context.languages.Select(x => x.name))</Column>
+        <Column Title="Quality" TData="string">@context.quality.name</Column>
+        <Column Title="Release Group" TData="string">@context.releaseGroup</Column>
+        <Column Title="Formats" TData="string">@string.Join(", ", context.customFormats.Select(x => x.name))</Column>*@
+    </Table>
+}
+
 
 @code {
+    [Parameter]
+    public string MovieId { get; set; }
 
+    [Inject]
+    public IRadarrService RadarrService { get; set; }
+
+    public List<ReleaseResource> Releases { get; set; }
+
+    ITable table;
+
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total => Releases?.Count ?? 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Releases = await RadarrService.GetReleases(MovieId);
+    }
 }
