@@ -18,7 +18,7 @@ else
 
     <Tabs DefaultActiveKey="1">
         <TabPane Key="1" Tab="History">
-            <HistoryTab History="MovieHistory"/>
+            <HistoryTab MovieId="@id"/>
         </TabPane>
         <TabPane Key="2" Tab="Search">
             <SearchTab />
@@ -53,8 +53,6 @@ else
 
     public List<MovieFile> MovieFiles { get; set; }
 
-    public List<MovieHistory> MovieHistory { get; set; }
-
     protected override async Task OnInitializedAsync()
     {
         await Task.WhenAll(new List<Task>
@@ -62,7 +60,6 @@ else
             LoadMovie(),
             LoadCredits(),
             LoadFiles(),
-            LoadHistory()
         });
     }
 
@@ -79,10 +76,5 @@ else
     private async Task LoadFiles()
     {
         MovieFiles = await RadarrService.GetFiles(id);
-    }
-
-    private async Task LoadHistory()
-    {
-        MovieHistory = await RadarrService.GetHistory(id);
     }
 }

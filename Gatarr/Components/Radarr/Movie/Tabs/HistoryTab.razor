@@ -1,5 +1,113 @@
-﻿<h3>HistoryTab</h3>
+﻿@using Gatarr.Models
+@using Gatarr.Models.Radarr
+@using Gatarr.Services
+@using Humanizer
+
+<style>
+    .eventColumn {
+        text-align: center;
+    }
+
+    .danger {
+        color: #f05050;
+    }
+
+    .default {
+        color: inherit;
+    }
+</style>
+
+@if (History == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <Table @ref="table"
+           TItem="MovieHistory"
+           DataSource="@History"
+           Total="_total"
+           @bind-PageIndex="_pageIndex"
+           @bind-PageSize="_pageSize">
+        <Column TData="string" Class="eventColumn"><span class="fa @GetIconName(@context) @getIconKind(@context)" title="@GetTooltip(@context)"></span></Column>
+        <Column Title="Source Title" TData="string">@context.sourceTitle</Column>
+        <Column Title="Languages" TData="string">@string.Join(", ", context.languages.Select(x => x.name))</Column>
+        <Column Title="Quality" TData="string">@context.quality.quality.name</Column>
+        <Column Title="Formats" TData="string">@string.Join(", ", context.customFormats.Select(x => x.name))</Column>
+        <Column Title="Date" TData="string">@context.date.ToLocalTime().ToOrdinalWords()</Column>
+        <Column TData="Button">
+            <Tooltip Title="@IconType.Outline.Info">
+                <Button Shape="@ButtonShape.Circle" Icon="@IconType.Outline.Info" OnClick="InfoButtonClicked"/>
+            </Tooltip>
+        </Column>
+    </Table>
+}
 
 @code {
+    [Parameter]
+    public string MovieId { get; set; }
+
+    [Inject]
+    public IRadarrService RadarrService { get; set; }
+
+    public List<MovieHistory> History { get; set; }
+
+    ITable table;
+
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total => History?.Count ?? 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        History = await RadarrService.GetHistory(MovieId);
+    }
+    
+    // Method taken from https://github.com/Radarr/Radarr/blob/master/frontend/src/Activity/History/HistoryEventTypeCell.js
+    public string GetIconName(MovieHistory history)
+    {
+        return history.eventType switch
+        {
+            EventTypeConstants.Grabbed => FontAwesomeConstants.CloudArrowDown,
+            EventTypeConstants.MovieFolderImported => FontAwesomeConstants.Hdd,
+            EventTypeConstants.DownloadFolderImported => FontAwesomeConstants.Download,
+            EventTypeConstants.DownloadFailed => FontAwesomeConstants.CloudArrowDown,
+            EventTypeConstants.MovieFileDeleted => FontAwesomeConstants.TrashCan,
+            EventTypeConstants.MovieFileRenamed => FontAwesomeConstants.Sitemap,
+            EventTypeConstants.DownloadIgnored => FontAwesomeConstants.CircleXMark,
+            _ => FontAwesomeConstants.CircleQuestion
+            };
+    }
+
+    // Method taken from https://github.com/Radarr/Radarr/blob/master/frontend/src/Activity/History/HistoryEventTypeCell.js
+    public string getIconKind(MovieHistory history)
+    {
+        return history.eventType switch
+        {
+            EventTypeConstants.DownloadFailed => "danger",
+            _ => "default"
+        };
+    }
+
+    // Method taken from https://github.com/Radarr/Radarr/blob/master/frontend/src/Activity/History/HistoryEventTypeCell.js
+    public string GetTooltip(MovieHistory history)
+    {
+        return history.eventType switch
+        {
+            EventTypeConstants.Grabbed => $"Movie grabbed from {history.data.indexer} and sent to {history.data.downloadClient}",
+            EventTypeConstants.MovieFolderImported => "Movie imported from movie folder",
+            EventTypeConstants.DownloadFolderImported => "Movie downloaded successfully and picked up from download client",
+            EventTypeConstants.DownloadFailed => "Movie download failed",
+            EventTypeConstants.MovieFileDeleted => "Movie file deleted",
+            EventTypeConstants.MovieFileRenamed => "Movie file renamed",
+            EventTypeConstants.DownloadIgnored => "Movie Download Ignored",
+            _ => "Unknown event"
+        };
+    }
+
+    private void InfoButtonClicked(MouseEventArgs obj)
+    {
+        throw new NotImplementedException();
+    }
 
 }
