@@ -1,0 +1,22 @@
+﻿@using Gatarr.Models.Radarr
+
+<tr>
+    <td class="table-label">Name</td>
+    <td>@SourceTitle</td>
+</tr>
+
+@if (!string.IsNullOrEmpty(Data.message))
+{
+    <tr>
+        <td class="table-label">Message</td>
+        <td>@Data.message</td>
+    </tr>
+}
+
+@code {
+    [Parameter]
+    public string SourceTitle { get; set; }
+
+    [Parameter]
+    public Data Data { get; set; }
+}

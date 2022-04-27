@@ -1,0 +1,30 @@
+﻿@using Gatarr.Models.Radarr
+
+<tr>
+    <td class="table-label">Name</td>
+    <td>@SourceTitle</td>
+</tr>
+
+<tr>
+    <td class="table-label">Reason</td>
+    <td>@GetReasonMessage(Data.reason)</td>
+</tr>
+
+@code {
+    [Parameter]
+    public string SourceTitle { get; set; }
+
+    [Parameter]
+    public Data Data { get; set; }
+
+    public string GetReasonMessage(string reason)
+    {
+        return reason switch
+        {
+            "Manual" => "File was deleted via the UI",
+            "MissingFromDisk" => "Radarr was unable to find the file on disk so the file was unlinked from the movie in the database",
+            "Upgrade" => "File was deleted to import an upgrade",
+            _ => string.Empty
+        };
+    }
+}

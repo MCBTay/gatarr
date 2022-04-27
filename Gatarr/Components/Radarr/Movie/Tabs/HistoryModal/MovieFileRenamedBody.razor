@@ -1,0 +1,41 @@
+﻿@using Gatarr.Models.Radarr
+
+@if (!string.IsNullOrEmpty(Data.sourcePath))
+{
+    <tr>
+        <td class="table-label">Source Path</td>
+        <td>@Data.sourcePath</td>
+    </tr>
+}
+
+@if (!string.IsNullOrEmpty(Data.sourceRelativePath))
+{
+    <tr>
+        <td class="table-label">Source Relative Path</td>
+        <td>@Data.sourceRelativePath</td>
+    </tr>
+}
+
+@if (!string.IsNullOrEmpty(Data.path))
+{
+    <tr>
+        <td class="table-label">Destination Path</td>
+        <td>@Data.path</td>
+    </tr>
+}
+
+@if (!string.IsNullOrEmpty(Data.relativePath))
+{
+    <tr>
+        <td class="table-label">Destination Relative Path</td>
+        <td>@Data.relativePath</td>
+    </tr>
+}
+
+@code {
+    [Parameter]
+    public string SourceTitle { get; set; }
+
+    [Parameter]
+    public Data Data { get; set; }
+}

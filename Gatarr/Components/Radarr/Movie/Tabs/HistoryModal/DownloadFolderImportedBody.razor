@@ -1,0 +1,30 @@
+﻿@using Gatarr.Models.Radarr
+
+<tr>
+    <td class="table-label">Name</td>
+    <td>@SourceTitle</td>
+</tr>
+    
+@if (!string.IsNullOrEmpty(Data.droppedPath))
+{
+    <tr>
+        <td class="table-label">Source</td>
+        <td>@Data.droppedPath</td>
+    </tr>
+}
+
+@if (!string.IsNullOrEmpty(Data.importedPath))
+{
+    <tr>
+        <td class="table-label">Imported To</td>
+        <td>@Data.importedPath</td>
+    </tr>
+}
+
+@code {
+    [Parameter]
+    public string SourceTitle { get; set; }
+
+    [Parameter]
+    public Data Data { get; set; }
+}

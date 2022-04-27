@@ -1,0 +1,76 @@
+﻿@using Gatarr.Models.Radarr
+@using Humanizer
+
+<tr>
+    <td class="table-label">Name</td>
+    <td>@SourceTitle</td>
+</tr>
+    
+@if (!string.IsNullOrEmpty(Data.indexer))
+{
+    <tr>
+        <td class="table-label">Indexer</td>
+        <td>@Data.indexer</td>
+    </tr>
+}
+
+@if (!string.IsNullOrEmpty(Data.releaseGroup))
+{
+    <tr>
+        <td class="table-label">Release Group</td>
+        <td>@Data.releaseGroup</td>
+    </tr>
+}
+
+@if (!string.IsNullOrEmpty(Data.nzbInfoUrl))
+{
+    <tr>
+        <td class="table-label">Info URL</td>
+        <td><a href="@Data.nzbInfoUrl">@Data.nzbInfoUrl</a></td>
+    </tr>
+}
+
+@if (!string.IsNullOrEmpty(Data.downloadClientName) || !string.IsNullOrEmpty(Data.downloadClient))
+{
+    var downloadClientNameInfo = string.IsNullOrEmpty(@Data.downloadClientName) ? @Data.downloadClientName : @Data.downloadClient;
+
+    <tr>
+        <td class="table-label">Download Client</td>
+        <td>downloadClientNameInfo</td>
+    </tr>
+}
+
+@if (!string.IsNullOrEmpty(Data.downloadId))
+{
+    <tr>
+        <td class="table-label">Download ID</td>
+        <td>@Data.downloadId</td>
+    </tr>
+}
+
+@if (!string.IsNullOrEmpty(Data.ageMinutes))
+{
+    if (double.TryParse(Data.ageMinutes, out var minutes))
+    {
+        <tr>
+            <td class="table-label">Age (when grabbed)</td>
+            <td>@minutes.Minutes().Humanize()</td>
+        </tr>
+    }
+}
+
+@if (@Data.publishedDate.HasValue)
+{
+    <tr>
+        <td class="table-label">Published Date</td>
+        <td>@Data.publishedDate.Value</td>
+    </tr>
+}
+
+@code {
+    [Parameter]
+    public string SourceTitle { get; set; }
+
+    [Parameter]
+    public Data Data { get; set; }
+}

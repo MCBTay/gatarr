@@ -1,0 +1,344 @@
+﻿@using Gatarr.Models.Radarr
+@using Gatarr.Models
+@using Humanizer
+
+<Tooltip Title="@IconType.Outline.Info">
+    <Button Shape="@ButtonShape.Circle" Icon="@IconType.Outline.Info" OnClick="@(() => { _visible = true; })"/>
+</Tooltip>
+<Modal Title="@GetHeaderTitle(@EventType)"
+       Centered="true"
+       Visible="@_visible"
+       OnOk="@HandleOk"
+       OnCancel="@HandleCancel"
+       Style="width: 90%; max-width: 1080px;">
+
+<style>
+    .table-label {
+        text-align: right;
+        font-weight: bold;
+        padding-right: 15px;
+    }
+
+    table td {
+        overflow-wrap: break-word;
+    }
+</style>
+<table style="margin: 0 auto;">
+@if (EventType == EventTypeConstants.Grabbed)
+{
+    <GrabbedBody SourceTitle="@SourceTitle" Data="Data" />
+}
+else if (EventType == EventTypeConstants.DownloadFailed)
+{
+    <DownloadFailedBody SourceTitle="@SourceTitle" Data="Data" />
+}
+else if (EventType == EventTypeConstants.DownloadFolderImported)
+{
+    <DownloadFolderImportedBody SourceTitle="@SourceTitle" Data="Data" />
+}
+else if (EventType == EventTypeConstants.MovieFileDeleted)
+{
+
+}
+else if (EventType == EventTypeConstants.MovieFileRenamed)
+{
+    <MovieFileRenamedBody SourceTitle="@SourceTitle" Data="Data" />
+}
+else if (EventType == EventTypeConstants.DownloadIgnored)
+{
+    <DownloadIgnoredBody SourceTitle="@SourceTitle" Data="Data" />
+}
+</table>
+@*      if (eventType === 'grabbed') {
+    const {
+      indexer,
+      releaseGroup,
+      nzbInfoUrl,
+      downloadClient,
+      downloadClientName,
+      downloadId,
+      age,
+      ageHours,
+      ageMinutes,
+      publishedDate
+    } = data;
+
+    const downloadClientNameInfo = downloadClientName ?? downloadClient;
+
+    return (
+      <DescriptionList>
+        <DescriptionListItem
+          descriptionClassName={styles.description}
+          title={translate('Name')}
+          data={sourceTitle}
+        />
+
+        {
+          !!indexer &&
+            <DescriptionListItem
+              title={translate('Indexer')}
+              data={indexer}
+            />
+        }
+
+        {
+          !!releaseGroup &&
+            <DescriptionListItem
+              descriptionClassName={styles.description}
+              title={translate('ReleaseGroup')}
+              data={releaseGroup}
+            />
+        }
+
+        {
+          !!nzbInfoUrl &&
+            <span>
+              <DescriptionListItemTitle>
+                Info URL
+              </DescriptionListItemTitle>
+
+              <DescriptionListItemDescription>
+                <Link to={nzbInfoUrl}>{nzbInfoUrl}</Link>
+              </DescriptionListItemDescription>
+            </span>
+        }
+
+        {
+          downloadClientNameInfo ?
+            <DescriptionListItem
+              title={translate('DownloadClient')}
+              data={downloadClientNameInfo}
+            /> :
+            null
+        }
+
+        {
+          !!downloadId &&
+            <DescriptionListItem
+              title={translate('GrabID')}
+              data={downloadId}
+            />
+        }
+
+        {
+          !!indexer &&
+            <DescriptionListItem
+              title={translate('AgeWhenGrabbed')}
+              data={formatAge(age, ageHours, ageMinutes)}
+            />
+        }
+
+        {
+          !!publishedDate &&
+            <DescriptionListItem
+              title={translate('PublishedDate')}
+              data={formatDateTime(publishedDate, shortDateFormat, timeFormat, { includeSeconds: true })}
+            />
+        }
+      </DescriptionList>
+    );
+  }
+
+  if (eventType === 'downloadFailed') {
+    const {
+      message
+    } = data;
+
+    return (
+      <DescriptionList>
+        <DescriptionListItem
+          descriptionClassName={styles.description}
+          title={translate('Name')}
+          data={sourceTitle}
+        />
+
+        {
+          !!message &&
+            <DescriptionListItem
+              title={translate('Message')}
+              data={message}
+            />
+        }
+      </DescriptionList>
+    );
+  }
+
+  if (eventType === 'downloadFolderImported') {
+    const {
+      droppedPath,
+      importedPath
+    } = data;
+
+    return (
+      <DescriptionList>
+        <DescriptionListItem
+          descriptionClassName={styles.description}
+          title={translate('Name')}
+          data={sourceTitle}
+        />
+
+        {
+          !!droppedPath &&
+            <DescriptionListItem
+              descriptionClassName={styles.description}
+              title={translate('Source')}
+              data={droppedPath}
+            />
+        }
+
+        {
+          !!importedPath &&
+            <DescriptionListItem
+              descriptionClassName={styles.description}
+              title={translate('ImportedTo')}
+              data={importedPath}
+            />
+        }
+      </DescriptionList>
+    );
+  }
+
+  if (eventType === 'movieFileDeleted') {
+    const {
+      reason
+    } = data;
+
+    let reasonMessage = '';
+
+    switch (reason) {
+      case 'Manual':
+        reasonMessage = translate('FileWasDeletedByViaUI');
+        break;
+      case 'MissingFromDisk':
+        reasonMessage = translate('MissingFromDisk');
+        break;
+      case 'Upgrade':
+        reasonMessage = translate('FileWasDeletedByUpgrade');
+        break;
+      default:
+        reasonMessage = '';
+    }
+
+    return (
+      <DescriptionList>
+        <DescriptionListItem
+          title={translate('Name')}
+          data={sourceTitle}
+        />
+
+        <DescriptionListItem
+          title={translate('Reason')}
+          data={reasonMessage}
+        />
+      </DescriptionList>
+    );
+  }
+
+  if (eventType === 'movieFileRenamed') {
+    const {
+      sourcePath,
+      sourceRelativePath,
+      path,
+      relativePath
+    } = data;
+
+    return (
+      <DescriptionList>
+        <DescriptionListItem
+          title={translate('SourcePath')}
+          data={sourcePath}
+        />
+
+        <DescriptionListItem
+          title={translate('SourceRelativePath')}
+          data={sourceRelativePath}
+        />
+
+        <DescriptionListItem
+          title={translate('DestinationPath')}
+          data={path}
+        />
+
+        <DescriptionListItem
+          title={translate('DestinationRelativePath')}
+          data={relativePath}
+        />
+      </DescriptionList>
+    );
+  }
+
+  if (eventType === 'downloadIgnored') {
+    const {
+      message
+    } = data;
+
+    return (
+      <DescriptionList>
+        <DescriptionListItem
+          descriptionClassName={styles.description}
+          title={translate('Name')}
+          data={sourceTitle}
+        />
+
+        {
+          !!message &&
+            <DescriptionListItem
+              title={translate('Message')}
+              data={message}
+            />
+        }
+      </DescriptionList>
+    );
+  }
+
+  return (
+    <DescriptionList>
+      <DescriptionListItem
+        descriptionClassName={styles.description}
+        title={translate('Name')}
+        data={sourceTitle}
+      />
+    </DescriptionList>
+  );
+}*@
+</Modal>
+
+@code {
+    [Parameter]
+    public string EventType { get; set; }
+
+    [Parameter]
+    public string SourceTitle { get; set; }
+
+    [Parameter]
+    public Data Data { get; set; }
+
+    bool _visible { get; set; }
+
+    // Method taken from https://github.com/Radarr/Radarr/blob/master/frontend/src/Activity/History/Details/HistoryDetailsModal.js
+    public string GetHeaderTitle(string eventType)
+    {
+        return eventType switch
+        {
+            EventTypeConstants.Grabbed => "Grabbed",
+            EventTypeConstants.DownloadFailed => "Download Failed",
+            EventTypeConstants.DownloadFolderImported => "Movie Imported",
+            EventTypeConstants.MovieFileDeleted => "Movie File Deleted",
+            EventTypeConstants.MovieFileRenamed => "Movie File Renamed",
+            EventTypeConstants.DownloadIgnored => "Download Ignored",
+            _ => "Unknown"
+            };
+    }
+
+    private void HandleOk(MouseEventArgs e)
+    {
+        Console.WriteLine(e);
+        _visible = false;
+    }
+
+    private void HandleCancel(MouseEventArgs e)
+    {
+        Console.WriteLine(e);
+        _visible = false;
+    }
+}
