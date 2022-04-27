@@ -95,7 +95,7 @@ namespace Gatarr.Services
         {
             var history = new List<MovieHistory>();
 
-            var response = await HttpClient.GetAsync($"history?movieId={movieId}");
+            var response = await HttpClient.GetAsync($"history/movie?movieId={movieId}");
 
             if (response?.Content == null || !response.IsSuccessStatusCode)
             {
