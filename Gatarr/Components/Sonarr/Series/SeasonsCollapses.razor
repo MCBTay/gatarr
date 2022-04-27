@@ -1,0 +1,39 @@
+﻿@using Gatarr.Services
+@using Gatarr.Models.Sonarr
+
+@if (Seasons == null)
+{
+    <PageTitle>Loading...</PageTitle>
+
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <Collapse DefaultActiveKey="@(new[] {"1"})">
+        @foreach (var season in Seasons)
+        {
+            <Panel Header="Season #">
+                @foreach (var episode in season.Value)
+                {
+                    <p>@episode.title</p>
+                }
+            </Panel>
+        }
+    </Collapse>
+}
+
+@code {
+    [Parameter]
+    public string MovieId { get; set; }
+
+    [Inject]
+    public ISonarrService SonarrService { get; set; }
+
+    public Dictionary<int, List<Episode>> Seasons { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var episodes = await SonarrService.GetEpisodes(MovieId);
+        Seasons = episodes.GroupBy(x => x.seasonNumber).ToDictionary(x => x.Key, x => x.ToList());
+    }
+}

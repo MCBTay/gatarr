@@ -1,0 +1,36 @@
+﻿@using Gatarr.Models.Sonarr
+
+@if (Episodes == null)
+{
+    <PageTitle>Loading...</PageTitle>
+
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <Table @ref="table"
+           TItem="Episode"
+           DataSource="@Episodes"
+           Total="_total"
+           @bind-PageIndex="_pageIndex"
+           @bind-PageSize="_pageSize">
+        
+        <Column Title="#" TData="string">@context.episodeNumber</Column>
+        <Column Title="Title" TData="string">
+            @context.title
+        </Column>
+        <Column Title="Air Date" TData="string">@context.airDate</Column>
+        <Column Title="Size" TData="string">@context.</Column>
+    </Table>
+}
+
+@code {
+    [Parameter]
+    public List<Episode> Episodes { get; set; }
+
+    ITable table;
+
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total => Episodes?.Count ?? 0;
+}
