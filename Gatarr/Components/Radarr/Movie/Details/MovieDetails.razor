@@ -50,16 +50,33 @@
         background: #000;
         opacity: 0.7;
     }
+
+    .infoLabel {
+        margin-bottom: 2px;
+        color: #909293;
+        font-size: 10px;
+    }
+
+    span .info {
+        font-weight: 300;
+        font-size: 17px;
+        color: #fff;
+        white-space: nowrap;
+        line-height: 1;
+        cursor: default;
+        padding: 3px 7px;
+        margin: 5px 10px 5px 0;
+    }
 </style>
 
 <div class="movieDetailsRoot">
     <div class="fanArtOverlay" />
     <div class="movieDetailsContent">
         <Row>
-            <GridCol Span="6">
+            <GridCol Span="4">
                 <Image Class="moviePoster" Src="@Poster?.remoteUrl" />
             </GridCol>
-            <GridCol Span="18">
+            <GridCol Span="20">
                 <div class="movie">
                     <h1>@Movie.title</h1>
                     <div class="movieDetails">
@@ -73,12 +90,30 @@
                     </div>
                     <MovieRatings Ratings="@Movie.ratings" />
                     <div>
-                        <span>@Movie.path</span>
-                        <span>@Movie.status</span>
-                        <span>@Movie.qualityProfileId</span>
-                        <span>@Movie.sizeOnDisk.Bytes().Humanize()</span>
-                        <span>@Movie.studio</span>
-                        <span>@string.Join(", ", @Movie.genres)</span>
+                        <span>
+                            <div class="infoLabel">Path</div>
+                            <span class="info">@Movie.path</span>
+                        </span>
+                        <span>
+                            <div class="infoLabel">Status</div>
+                            <span class="info">@Movie.status</span>
+                        </span>
+                        <span>
+                            <div class="infoLabel">Quality Profile</div>
+                            <span class="info">@Movie.qualityProfileId</span>
+                        </span>
+                        <span>
+                            <div class="infoLabel">Size</div>
+                            <span class="info">@Movie.sizeOnDisk.Bytes().Humanize()</span>
+                        </span>
+                        <span>
+                            <div class="infoLabel">Studio</div>
+                            <span class="info">@Movie.studio</span>
+                        </span>
+                        <span>
+                            <div class="infoLabel">Genres</div>
+                            <span class="info">@string.Join(", ", @Movie.genres)</span>
+                        </span>
                     </div>
                     <div class="overview">
                         <span>@Movie.overview</span>
