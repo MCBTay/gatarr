@@ -28,7 +28,7 @@ else
     [Inject]
     public ISonarrService SonarrService { get; set; }
 
-    public List<Series> Series { get; set; }
+    public List<Models.Sonarr.Series> Series { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
