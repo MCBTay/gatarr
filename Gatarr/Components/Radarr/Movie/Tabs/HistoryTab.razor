@@ -2,6 +2,7 @@
 @using Gatarr.Models.Radarr
 @using Gatarr.Services
 @using Humanizer
+@using Gatarr.Components.Radarr.Movie.Tabs.HistoryModal;
 
 <style>
     .eventColumn {
@@ -36,9 +37,7 @@ else
         <Column Title="Formats" TData="string">@string.Join(", ", context.customFormats.Select(x => x.name))</Column>
         <Column Title="Date" TData="string">@context.date.ToLocalTime().ToOrdinalWords()</Column>
         <Column TData="Button">
-            <Tooltip Title="@IconType.Outline.Info">
-                <Button Shape="@ButtonShape.Circle" Icon="@IconType.Outline.Info" OnClick="InfoButtonClicked"/>
-            </Tooltip>
+            <HistoryModal EventType="@context.eventType" SourceTitle="@context.sourceTitle" Data="@context.data" />
         </Column>
     </Table>
 }
@@ -104,10 +103,4 @@ else
             _ => "Unknown event"
         };
     }
-
-    private void InfoButtonClicked(MouseEventArgs obj)
-    {
-        throw new NotImplementedException();
-    }
-
 }
