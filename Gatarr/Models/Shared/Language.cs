@@ -1,4 +1,4 @@
-﻿namespace Gatarr.Models.Radarr;
+﻿namespace Gatarr.Models.Shared;
 
 public class Language
 {
