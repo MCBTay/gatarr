@@ -6,7 +6,7 @@
         public int movieId { get; set; }
         public string sourceTitle { get; set; }
         public List<Language> languages { get; set; }
-        public Quality quality { get; set; }
+        public QualityModel quality { get; set; }
         public List<CustomFormat> customFormats { get; set; }
         public bool qualityCutoffNotMet { get; set; }
         public DateTime date { get; set; }
