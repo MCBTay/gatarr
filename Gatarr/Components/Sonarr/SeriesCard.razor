@@ -1,25 +1,25 @@
 ﻿@using Gatarr.Models.Sonarr
+@using Humanizer
 
-
-<Card Style="width:300px;">
-    <Body>
-        @if (Series.images.FirstOrDefault(x => x.coverType == "poster") != null)
-        {
-            <AntDesign.Image Src="@Series.images.FirstOrDefault(x => x.coverType == "poster").remoteUrl" />
-        }
-        <div class="demo-mat-card-content">
-            <Title Level="4">
-                @Series.title (@Series.year)
-                <div>@Series.runtime</div>
-            </Title>
-            <p>
-                @Series.overview
-            </p>
-        </div>
-    </Body>
-</Card>
+<div class="series">
+    <a href="/sonarr/series/@Series.id">
+        <Card Hoverable Style="width: 200px;" Cover="GetPosterTemplate()">
+            <Body>
+            <div>
+                <div class="seriesTitle">@Series.title (@Series.year)</div>
+                <div class="runtime">@Series.runtime.Minutes().Humanize(precision: 2)</div>
+            </div>
+            </Body>
+        </Card>
+    </a>
+</div>
 
 @code {
     [Parameter]
     public Series Series { get; set; }
+
+    public RenderFragment GetPosterTemplate()
+    {
+        return @<img alt="poster" class="poster" src="@Series?.images?.FirstOrDefault(x => x.coverType == "poster").remoteUrl" />;
+    }
 }

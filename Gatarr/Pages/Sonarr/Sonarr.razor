@@ -13,10 +13,14 @@
 }
 else
 {
-    @foreach (var showSeries in Series)
-    {
-        <SeriesCard Series="@showSeries" />
-    }
+    <Space Size=@(("8", "16")) Wrap Align="start">
+        @foreach (var showSeries in Series)
+        {
+            <SpaceItem>
+                <SeriesCard Series="@showSeries" />
+            </SpaceItem>
+        }
+    </Space>
 }
 
 @code {

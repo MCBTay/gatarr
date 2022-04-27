@@ -3,36 +3,6 @@
 @using Microsoft.AspNetCore.Http.Extensions
 
 <style>
-    .crewHeadshot {
-        width: 127px;
-        height: 187px;
-    }
-
-    .emptyCrewHeadshot {
-        position: relative;
-        display: block;
-        background-color: #333;
-    }
-
-    .crewHeadshotOverlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 5px;
-        width: 127px;
-        height: 187px;
-        color: #f5f7fa;
-        text-align: center;
-        font-size: 20px;
-    }
-
-    .credit .personName {
-        font-weight: bold;
-    }
-
     .movie .movieTitle,
     .movie .runtime,
     .movie .inCinemas,
@@ -60,8 +30,6 @@
     .movie .ant-card-body {
         padding: 10px;
     }
-
-
 </style>
 
 <div class="movie">
@@ -103,16 +71,8 @@
 </div>
 
 @code {
-    [Inject]
-    public NavigationManager NavigationManager { get; set; }
-
     [Parameter]
     public MovieResource Movie { get; set; }
-
-    private void InfoButtonOnClick(MouseEventArgs obj)
-    {
-        NavigationManager.NavigateTo($"/radarr/movies/{Movie.id}");
-    }
 
     public RenderFragment GetPosterTemplate()
     {
