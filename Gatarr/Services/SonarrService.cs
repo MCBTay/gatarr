@@ -9,6 +9,7 @@ namespace Gatarr.Services
         Task<List<Series>> GetSeries();
         Task<Series> GetSeries(string id);
         Task<List<Episode>> GetEpisodes(string id);
+        Task<List<EpisodeFile>> GetEpisodeFiles(string id);
     }
 
     public class SonarrService : ArrService, ISonarrService
@@ -72,6 +73,22 @@ namespace Gatarr.Services
             episodes = await response.Content.ReadFromJsonAsync<List<Episode>>();
 
             return episodes ?? new List<Episode>();
+        }
+
+        public async Task<List<EpisodeFile>> GetEpisodeFiles(string id)
+        {
+            var episodeFiles = new List<EpisodeFile>();
+
+            var response = await HttpClient.GetAsync($"episodeFiles?seriesId={id}");
+
+            if (response?.Content == null || !response.IsSuccessStatusCode)
+            {
+                return episodeFiles;
+            }
+
+            episodeFiles = await response.Content.ReadFromJsonAsync<List<EpisodeFile>>();
+
+            return episodeFiles ?? new List<EpisodeFile>();
         }
     }
 }
