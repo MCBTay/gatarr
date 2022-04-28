@@ -15,10 +15,14 @@
     {
         public const string CircleQuestion = "fa-circle-question";
         public const string CircleXMark = "fa-circle-xmark";
+        public const string ClockRotateLeft = "fa-clock-rotate-left";
         public const string CloudArrowDown = "fa-cloud-arrow-down";
         public const string Download = "fa-download";
+        public const string FileVideo = "fa-file-video";
         public const string Hdd = "fa-hdd";
+        public const string MagnifyingGlass = "fa-magnifying-glass";
         public const string Sitemap = "fa-sitemap";
         public const string TrashCan = "fa-trash-can";
+        public const string User = "fa-user";
     }
 }
