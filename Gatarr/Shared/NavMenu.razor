@@ -7,31 +7,63 @@
     </div>
 </div>
 
+<style>
+    #navLinkContent {
+        overflow: auto;
+        display: flex;
+        align-items: center;
+    }
+
+    #navLinkContent .icon span.fa {
+        font-size: 20px;
+    }
+
+    #navLinkContent .icon {
+        float: left;
+        margin-right: 8px;
+        width: 25px;
+        text-align: center;
+    }
+
+    #navLinkContent .labels {
+        float: left;
+    }
+
+    #navLinkContent .labels div {
+        line-height: 1;
+    }
+
+    #navLinkContent .labels div.service {
+        font-size: 12px;
+        opacity: 0.7;
+    }
+</style>
+
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                @GetNavLinkContent("Home", string.Empty, "fa-house")
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="sonarr">
-                <span class="oi oi-list-rich" aria-hidden="true"></span>Sonarr
+                @GetNavLinkContent("TV", "Sonarr", "fa-tv")
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="radarr">
-                <span class="oi oi-list-rich" aria-hidden="true"></span>Radarr
+                @GetNavLinkContent("Movies", "Radarr", "fa-film")
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="lidarr">
-                <span class="oi oi-list-rich" aria-hidden="true"></span>Lidarr
+                @GetNavLinkContent("Music", "Lidarr", "fa-music")
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="settings">
-                <span class="oi oi-cog" aria-hidden="true"></span>Settings
+                @GetNavLinkContent("Settings", string.Empty, "fa-gear")
             </NavLink>
         </div>
     </nav>
@@ -45,5 +77,20 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private RenderFragment GetNavLinkContent(string category, string serviceName, string icon)
+    {
+        return
+            @<div id="navLinkContent">
+                <div class="icon"><span class="fa @icon"/></div>
+                <div class="labels">
+                    <div>@category</div>
+                    @if (!string.IsNullOrEmpty(serviceName))
+                    {
+                        <div class="service">from @serviceName</div>
+                    }
+                </div>
+            </div>;
     }
 }
