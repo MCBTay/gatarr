@@ -3,7 +3,7 @@ using Gatarr.Models.Sonarr;
 
 namespace Gatarr.Services
 {
-    public interface ISonarrService
+    public interface ISonarrService : IArrService
     {
         Task<HttpResponseMessage> GetLog();
         Task<List<Series>> GetSeries();
@@ -21,6 +21,28 @@ namespace Gatarr.Services
         {
 
         }
+
+        public override async Task<bool> TestConnection()
+        {
+            try
+            {
+                using var response = await HttpClient.GetAsync("health");
+
+                if (response?.Content == null || !response.IsSuccessStatusCode)
+                {
+                    return false;
+                }
+
+                var test = await response.Content.ReadAsStringAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
 
         public async Task<HttpResponseMessage> GetLog()
         {
