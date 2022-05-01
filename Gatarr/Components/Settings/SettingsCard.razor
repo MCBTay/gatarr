@@ -1,0 +1,106 @@
+﻿@using Gatarr.Models.Settings
+@using Microsoft.AspNetCore.Components
+@using Awesome.Net.WritableOptions
+@using Gatarr.Services
+
+<Card Bordered="true" Style="width: 350px" Title="@Name">
+    <Form Model="@Settings"
+          LabelColSpan="8"
+          WrapperColSpan="16"
+          OnFinish="OnFinish"
+          OnFinishFailed="OnFinishFailed">
+
+        <FormItem Label="Enabled">
+            <Switch @bind-Value="@context.Value.Enabled" />
+        </FormItem>
+
+        <FormItem Label="Host">
+            <Input @bind-Value="@context.Value.Host"/>
+        </FormItem>
+        
+        <FormItem Label="Port">
+            <AntDesign.InputNumber @bind-Value="@context.Value.Port"/>
+        </FormItem>
+        
+        <FormItem Label="Use HTTPS">
+            <Switch @bind-Value="@context.Value.UseHttps"/>
+        </FormItem>
+        
+        <FormItem Label="API Key">
+            <Input @bind-Value="@context.Value.ApiKey"/>
+        </FormItem>
+
+        <Space Size=@(("8", "16")) Wrap Align="start">
+            <Button Type="@ButtonType.Default" Style="margin:4px" OnClick="OnTestClicked" Loading="_testingConnection">
+                @_testButtonText
+            </Button>
+
+            <FormItem>
+                <Button Type="@ButtonType.Primary" HtmlType="submit" Style="margin:4px">
+                    <span class="fa fa-save"/>
+                    Save
+                </Button>
+            </FormItem>
+        </Space>
+    </Form>
+</Card>
+
+@code {
+    [Parameter]
+    public string Name { get; set; }
+
+    [Parameter]
+    public IWritableOptions<ArrSettings> Settings { get; set; }
+
+    [Parameter]
+    public IArrService Service { get; set; }
+
+    private RenderFragment _testButtonText = @<div>Test</div>;
+
+    private void OnFinish(EditContext editContext)
+    {
+        Settings.Update(x =>
+        {
+            x.Host = Settings.Value.Host;
+            x.Port = Settings.Value.Port;
+            x.UseHttps = Settings.Value.UseHttps;
+            x.ApiKey = Settings.Value.ApiKey;
+            x.Enabled = Settings.Value.Enabled;
+        });
+    }
+
+    private void OnFinishFailed(EditContext editContext)
+    {
+        
+    }
+
+    private bool _testingConnection;
+
+    private async Task OnTestClicked(MouseEventArgs obj)
+    {
+        _testingConnection = true;
+
+        _testButtonText = @<div>Test</div>;
+
+        Service.ConfigureHttpClient(Settings.Value.Host, Settings.Value.Port.ToString(), Settings.Value.ApiKey, Settings.Value.UseHttps);
+
+        var success = await Service.TestConnection();
+
+        _testingConnection = false;
+
+        TemporaryTestButtonText(success);
+    }
+
+    private async Task TemporaryTestButtonText(bool success)
+    {
+        _testButtonText = success ? 
+            @<div><span class="fa fa-check" style="color:green" /> Success!</div> : 
+            @<div><span class="fa fa-circle-exclamation" style="color:red" /> Failed</div>;
+
+        await Task.Delay(TimeSpan.FromSeconds(5));
+
+        _testButtonText = @<div>Test</div>;
+        StateHasChanged();
+    }
+
+}
