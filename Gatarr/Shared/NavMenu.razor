@@ -1,4 +1,12 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using Microsoft.Extensions.Options
+@using Gatarr.Models.Settings
+@using System.Security.Cryptography.X509Certificates
+
+@inject IOptions<SonarrSettings> Sonarr
+@inject IOptions<RadarrSettings> Radarr
+@inject IOptions<LidarrSettings> Lidarr
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Gatarr</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -46,21 +54,34 @@
                 @GetNavLinkContent("Home", string.Empty, "fa-house")
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="sonarr">
-                @GetNavLinkContent("TV", "Sonarr", "fa-tv")
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="radarr">
-                @GetNavLinkContent("Movies", "Radarr", "fa-film")
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="lidarr">
-                @GetNavLinkContent("Music", "Lidarr", "fa-music")
-            </NavLink>
-        </div>
+        
+        @if (Sonarr.Value.Enabled)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="sonarr">
+                    @GetNavLinkContent("TV", "Sonarr", "fa-tv")
+                </NavLink>
+            </div>
+        }
+
+        @if (Radarr.Value.Enabled)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="radarr">
+                    @GetNavLinkContent("Movies", "Radarr", "fa-film")
+                </NavLink>
+            </div>
+        }
+
+        @if (Lidarr.Value.Enabled)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="lidarr">
+                    @GetNavLinkContent("Music", "Lidarr", "fa-music")
+                </NavLink>
+            </div>
+        }
+        
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="settings">
                 @GetNavLinkContent("Settings", string.Empty, "fa-gear")
@@ -92,5 +113,10 @@
                     }
                 </div>
             </div>;
+    }
+
+    public void Refresh()
+    {
+        StateHasChanged();
     }
 }
