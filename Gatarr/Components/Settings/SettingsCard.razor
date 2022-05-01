@@ -1,6 +1,7 @@
 ﻿@using Gatarr.Models.Settings
 @using Microsoft.AspNetCore.Components
 @using Awesome.Net.WritableOptions
+@using Gatarr.Models
 @using Gatarr.Services
 
 <Card Bordered="true" Style="width: 350px" Title="@Name">
@@ -37,7 +38,7 @@
 
             <FormItem>
                 <Button Type="@ButtonType.Primary" HtmlType="submit" Style="margin:4px">
-                    <span class="fa fa-save"/>
+                    <span class="fa @FontAwesomeConstants.Save"/>
                     Save
                 </Button>
             </FormItem>
@@ -94,8 +95,8 @@
     private async Task TemporaryTestButtonText(bool success)
     {
         _testButtonText = success ? 
-            @<div><span class="fa fa-check" style="color:green" /> Success!</div> : 
-            @<div><span class="fa fa-circle-exclamation" style="color:red" /> Failed</div>;
+            @<div><span class="fa @FontAwesomeConstants.Check" style="color:green" /> Success!</div> : 
+            @<div><span class="fa @FontAwesomeConstants.CircleExclamation" style="color:red" /> Failed</div>;
 
         await Task.Delay(TimeSpan.FromSeconds(5));
 

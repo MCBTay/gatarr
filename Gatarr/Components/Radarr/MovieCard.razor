@@ -1,6 +1,7 @@
 ﻿@using Gatarr.Models.Radarr
 @using Humanizer
 @using Microsoft.AspNetCore.Http.Extensions
+@using Gatarr.Models
 
 <style>
     .movie .movieTitle,
@@ -43,14 +44,14 @@
                 <table style="margin-left: auto; margin-right: auto;">
                     <tbody>
                         <tr>
-                            <td style="text-align: center"><span class="fa fa-ticket" /></td>
+                            <td style="text-align: center"><span class="fa @FontAwesomeConstants.Ticket" /></td>
                             <td class="inCinemas">@Movie.inCinemas.ToOrdinalWords()</td>
                         </tr>
 
                         @if (Movie.physicalRelease != DateTime.MinValue)
                         {
                             <tr>
-                                <td style="text-align: center"><span class="fa fa-compact-disc"/></td>
+                                <td style="text-align: center"><span class="fa @FontAwesomeConstants.CompactDisc"/></td>
                                 <td class="physicalRelease">@Movie.physicalRelease.ToOrdinalWords()</td>
                             </tr>
                         }
@@ -58,7 +59,7 @@
                         @if (Movie.digitalRelease != DateTime.MinValue)
                         {
                             <tr>
-                                <td style="text-align: center"><span class="fa fa-file-video"/></td>
+                                <td style="text-align: center"><span class="fa @FontAwesomeConstants.FileVideo"/></td>
                                 <td class="physicalRelease">@Movie.digitalRelease.ToOrdinalWords()</td>
                             </tr>
                         }

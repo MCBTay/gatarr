@@ -1,6 +1,7 @@
 ﻿@using Microsoft.Extensions.Options
 @using Gatarr.Models.Settings
 @using System.Security.Cryptography.X509Certificates
+@using Gatarr.Models
 
 @inject IOptions<SonarrSettings> Sonarr
 @inject IOptions<RadarrSettings> Radarr
@@ -51,7 +52,7 @@
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                @GetNavLinkContent("Home", string.Empty, "fa-house")
+                @GetNavLinkContent("Home", string.Empty, FontAwesomeConstants.House)
             </NavLink>
         </div>
         
@@ -59,7 +60,7 @@
         {
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="sonarr">
-                    @GetNavLinkContent("TV", "Sonarr", "fa-tv")
+                    @GetNavLinkContent("TV", "Sonarr", FontAwesomeConstants.TV)
                 </NavLink>
             </div>
         }
@@ -68,7 +69,7 @@
         {
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="radarr">
-                    @GetNavLinkContent("Movies", "Radarr", "fa-film")
+                    @GetNavLinkContent("Movies", "Radarr", FontAwesomeConstants.Film)
                 </NavLink>
             </div>
         }
@@ -77,14 +78,14 @@
         {
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="lidarr">
-                    @GetNavLinkContent("Music", "Lidarr", "fa-music")
+                    @GetNavLinkContent("Music", "Lidarr", FontAwesomeConstants.Music)
                 </NavLink>
             </div>
         }
         
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="settings">
-                @GetNavLinkContent("Settings", string.Empty, "fa-gear")
+                @GetNavLinkContent("Settings", string.Empty, FontAwesomeConstants.Gear)
             </NavLink>
         </div>
     </nav>
