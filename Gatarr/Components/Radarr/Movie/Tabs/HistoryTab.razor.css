@@ -1,0 +1,11 @@
+﻿.eventColumn {
+    text-align: center;
+}
+
+.danger {
+    color: #f05050;
+}
+
+.default {
+    color: inherit;
+}

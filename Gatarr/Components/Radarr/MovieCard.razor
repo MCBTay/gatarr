@@ -3,36 +3,6 @@
 @using Microsoft.AspNetCore.Http.Extensions
 @using Gatarr.Models
 
-<style>
-    .movie .movieTitle,
-    .movie .runtime,
-    .movie .inCinemas,
-    .movie .physicalRelease,
-    .movie .digitalRelease {
-        font-size: 14px;
-        text-align: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .movie .runtime,
-    .movie .inCinemas,
-    .movie .physicalRelease,
-    .movie .digitalRelease {
-        font-size: 12px;
-    }
-
-    .movie table td .fa {
-        font-size: 14px;
-        margin-right: 5px;
-    }
-
-    .movie .ant-card-body {
-        padding: 10px;
-    }
-</style>
-
 <div class="movie">
     <a href="/radarr/movies/@Movie.id">
         <Card Hoverable Style="width: 200px;" Cover="GetPosterTemplate()">

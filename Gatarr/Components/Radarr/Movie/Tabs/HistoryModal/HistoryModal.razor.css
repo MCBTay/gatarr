@@ -1,0 +1,9 @@
+﻿.table-label {
+    text-align: right;
+    font-weight: bold;
+    padding-right: 15px;
+}
+
+table td {
+    overflow-wrap: break-word;
+}

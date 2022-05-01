@@ -60,3 +60,33 @@
         display: block;
     }
 }
+
+#navLinkContent {
+    overflow: auto;
+    display: flex;
+    align-items: center;
+}
+
+#navLinkContent .icon span.fa {
+    font-size: 20px;
+}
+
+#navLinkContent .icon {
+    float: left;
+    margin-right: 8px;
+    width: 25px;
+    text-align: center;
+}
+
+#navLinkContent .labels {
+    float: left;
+}
+
+#navLinkContent .labels div {
+    line-height: 1;
+}
+
+#navLinkContent .labels div.service {
+    font-size: 12px;
+    opacity: 0.7;
+}

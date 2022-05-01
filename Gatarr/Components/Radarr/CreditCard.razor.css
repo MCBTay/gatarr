@@ -1,0 +1,43 @@
+﻿.crewHeadshot {
+    width: 127px;
+    height: 187px;
+}
+
+.emptyCrewHeadshot {
+    position: relative;
+    display: block;
+    background-color: #333;
+}
+
+.crewHeadshotOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    width: 127px;
+    height: 187px;
+    color: #f5f7fa;
+    text-align: center;
+    font-size: 20px;
+}
+
+.credit .personName {
+    font-weight: bold;
+}
+
+.credit .personName,
+.credit .character,
+.credit .job {
+    font-size: 12px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.credit .ant-card-body {
+    padding: 0px;
+}
