@@ -9,6 +9,7 @@
 
         void ConfigureHttpClient(string? host, string? port, string? apiKey, bool? useHttps);
         Task<bool> TestConnection();
+        string GetApiVersion();
     }
 
     public abstract class ArrService : IArrService
@@ -48,11 +49,12 @@
 
             HttpClient = _httpClientFactory.CreateClient();
 
-            HttpClient.BaseAddress = new Uri($"{protocol}://{Host}:{Port}/api/v3/");
+            HttpClient.BaseAddress = new Uri($"{protocol}://{Host}:{Port}/api/{GetApiVersion()}/");
             HttpClient.DefaultRequestHeaders.Add("X-Api-Key", ApiKey);
             HttpClient.Timeout = TimeSpan.FromSeconds(30);
         }
 
         public abstract Task<bool> TestConnection();
+        public abstract string GetApiVersion();
     }
 }

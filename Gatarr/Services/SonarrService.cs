@@ -22,6 +22,11 @@ namespace Gatarr.Services
 
         }
 
+        public override string GetApiVersion()
+        {
+            return "v3";
+        }
+
         public override async Task<bool> TestConnection()
         {
             try
