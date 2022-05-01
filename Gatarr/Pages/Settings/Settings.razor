@@ -1,0 +1,30 @@
+﻿@page "/settings"
+
+@using Awesome.Net.WritableOptions
+@using Gatarr.Components.Settings
+@using Gatarr.Models.Settings
+@using Gatarr.Services
+
+@inject ISonarrService SonarrService
+@inject IRadarrService RadarrService
+@inject IWritableOptions<SonarrSettings> Sonarr
+@inject IWritableOptions<RadarrSettings> Radarr
+@inject IWritableOptions<LidarrSettings> Lidarr
+
+<PageTitle>Settings</PageTitle>
+
+<Space Size=@(("8", "16")) Wrap Align="start">
+    <SettingsCard Name="Sonarr" Settings="Sonarr" Service="SonarrService" />
+</Space>
+
+<Space Size=@(("8", "16")) Wrap Align="start">
+    <SettingsCard Name="Radarr" Settings="Radarr" Service="RadarrService" />
+</Space>
+
+<Space Size=@(("8", "16")) Wrap Align="start">
+    <SettingsCard Name="Lidarr" Settings="Lidarr" />
+</Space>
+
+@code {
+
+}
