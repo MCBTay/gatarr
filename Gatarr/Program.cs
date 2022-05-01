@@ -1,3 +1,5 @@
+using Awesome.Net.WritableOptions.Extensions;
+using Gatarr.Models.Settings;
 using Gatarr.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,10 @@ builder.Services.AddAntDesign();
 
 builder.Services.AddSingleton<IRadarrService, RadarrService>();
 builder.Services.AddSingleton<ISonarrService, SonarrService>();
+
+builder.Services.ConfigureWritableOptions<RadarrSettings>(builder.Configuration, "Radarr");
+builder.Services.ConfigureWritableOptions<SonarrSettings>(builder.Configuration, "Sonarr");
+builder.Services.ConfigureWritableOptions<LidarrSettings>(builder.Configuration, "Lidarr");
 
 var app = builder.Build();
 
