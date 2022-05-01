@@ -1,0 +1,20 @@
+﻿<div class="example">
+    <Spin Size="large" />
+    <div><i>@LoadingText</i></div>
+</div>
+
+<style>
+    .example {
+        height: 100%;
+        text-align: center;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        padding: 30px 50px;
+        margin: 20px 0;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public string LoadingText { get; set; }
+}

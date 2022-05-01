@@ -1,7 +1,9 @@
 ﻿@page "/sonarr"
 @using Gatarr.Services
-@using Gatarr.Models.Sonarr
+@using Gatarr.Components
 @using Gatarr.Components.Sonarr
+
+@inject ISonarrService SonarrService
 
 <PageTitle>Sonarr</PageTitle>
 
@@ -9,7 +11,7 @@
 
 @if (Series == null)
 {
-    <p><em>Loading...</em></p>
+    <LoadingSpinner LoadingText="Loading series from Sonarr..." />
 }
 else
 {
@@ -24,10 +26,6 @@ else
 }
 
 @code {
-
-    [Inject]
-    public ISonarrService SonarrService { get; set; }
-
     public List<Models.Sonarr.Series> Series { get; set; }
 
     protected override async Task OnInitializedAsync()

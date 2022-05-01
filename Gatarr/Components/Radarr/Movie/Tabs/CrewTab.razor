@@ -1,9 +1,11 @@
 ﻿@using Gatarr.Models.Radarr
 @using Gatarr.Services
 
+@inject IRadarrService RadarrService
+
 @if (Crew == null)
 {
-    <p><em>Loading...</em></p>
+    <LoadingSpinner LoadingText="Loading crew..." />
 }
 else
 {
@@ -20,9 +22,6 @@ else
 @code {
     [Parameter]
     public string MovieId { get; set; }
-
-    [Inject]
-    public IRadarrService RadarrService { get; set; }
 
     public List<Credit> Crew { get; set; }
 

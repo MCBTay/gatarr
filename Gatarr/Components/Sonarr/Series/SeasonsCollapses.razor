@@ -1,11 +1,13 @@
 ﻿@using Gatarr.Services
 @using Gatarr.Models.Sonarr
 
+@inject ISonarrService SonarrService
+
 @if (Seasons == null)
 {
     <PageTitle>Loading...</PageTitle>
 
-    <p><em>Loading...</em></p>
+    <LoadingSpinner LoadingText="Loading seasons..." />
 }
 else
 {
@@ -25,9 +27,6 @@ else
 @code {
     [Parameter]
     public string MovieId { get; set; }
-
-    [Inject]
-    public ISonarrService SonarrService { get; set; }
 
     public Dictionary<int, List<Episode>> Seasons { get; set; }
 

@@ -1,14 +1,16 @@
 ﻿@page "/sonarr/series/{id}"
 @using Gatarr.Services
+@using Gatarr.Components
 @using Gatarr.Components.Sonarr.Series.Details;
 @using Gatarr.Components.Sonarr.Series;
-@using Gatarr.Models.Sonarr
+
+@inject ISonarrService SonarrService
 
 @if (CurrentSeries == null)
 {
     <PageTitle>Loading...</PageTitle>
 
-    <p><em>Loading...</em></p>
+    <LoadingSpinner LoadingText="Loading series..." />
 }
 else
 {
@@ -23,11 +25,7 @@ else
     [Parameter]
     public string id { get; set; }
 
-    [Inject]
-    public ISonarrService SonarrService { get; set; }
-
     public Models.Sonarr.Series CurrentSeries { get; set; }
-
 
     protected override async Task OnInitializedAsync()
     {

@@ -1,14 +1,17 @@
 ﻿@page "/radarr/movies/{id}"
 @using Gatarr.Services
+@using Gatarr.Components
 @using Gatarr.Components.Radarr.Movie.Details;
 @using Gatarr.Components.Radarr.Movie.Tabs;
 @using Gatarr.Models.Radarr
+
+@inject IRadarrService RadarrService
 
 @if (CurrentMovie == null)
 {
     <PageTitle>Loading...</PageTitle>
 
-    <p><em>Loading...</em></p>
+    <LoadingSpinner LoadingText="Loading movie..." />
 }
 else
 {
@@ -41,9 +44,6 @@ else
 @code {
     [Parameter]
     public string id { get; set; }
-
-    [Inject]
-    public IRadarrService RadarrService { get; set; }
 
     public MovieResource CurrentMovie { get; set; }
 

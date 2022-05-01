@@ -4,9 +4,11 @@
 @using Humanizer
 @using Gatarr.Components.Radarr.Movie.Tabs.HistoryModal;
 
+@inject IRadarrService RadarrService
+
 @if (History == null)
 {
-    <p><em>Loading...</em></p>
+    <LoadingSpinner LoadingText="Loading history..." />
 }
 else
 {
@@ -31,9 +33,6 @@ else
 @code {
     [Parameter]
     public string MovieId { get; set; }
-
-    [Inject]
-    public IRadarrService RadarrService { get; set; }
 
     public List<MovieHistory> History { get; set; }
 

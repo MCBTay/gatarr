@@ -67,6 +67,8 @@ namespace Gatarr.Services
 
             movies = await response.Content.ReadFromJsonAsync<List<MovieResource>>();
 
+            await Task.Delay(TimeSpan.FromSeconds(10));
+
             return movies ?? new List<MovieResource>();
         }
 

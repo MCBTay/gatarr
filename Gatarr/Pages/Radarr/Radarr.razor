@@ -1,7 +1,11 @@
 ﻿@page "/radarr"
-@using Gatarr.Services
-@using Gatarr.Models.Radarr
+
+@using Gatarr.Components
 @using Gatarr.Components.Radarr
+@using Gatarr.Models.Radarr
+@using Gatarr.Services
+
+@inject IRadarrService RadarrService
 
 <PageTitle>Radarr</PageTitle>
 
@@ -9,7 +13,7 @@
 
 @if (Movies == null)
 {
-    <p><em>Loading...</em></p>
+    <LoadingSpinner LoadingText="Loading movies from Radarr..." />
 }
 else
 {
@@ -24,10 +28,6 @@ else
 }
 
 @code {
-
-    [Inject]
-    public IRadarrService RadarrService { get; set; }
-
     public List<MovieResource> Movies { get; set; }
 
     protected override async Task OnInitializedAsync()
