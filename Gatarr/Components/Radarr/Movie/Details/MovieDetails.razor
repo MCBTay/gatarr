@@ -20,8 +20,12 @@
                         </Popover>
 
                         <span class="runtime">@Movie.runtimeDisplay</span>
+                        
+                        <MovieLinks Movie="@Movie" />
                     </div>
+
                     <MovieRatings Ratings="@Movie.ratings" />
+
                     <Space Size=@(("8", "16")) Wrap Align="start">
                         <LabelledTextField Label="Path" Value="@Movie.path" />
                         <LabelledTextField Label="Status" Value="@Movie.status" />
@@ -30,6 +34,7 @@
                         <LabelledTextField Label="Studio" Value="@Movie.studio" />
                         <LabelledTextField Label="Genres" Value="@string.Join(", ", Movie.genres)" />
                     </Space>
+
                     <div class="overview">
                         <span>@Movie.overview</span>
                     </div>

@@ -26,6 +26,7 @@
         public const string Gear = "fa-gear";
         public const string Hdd = "fa-hdd";
         public const string House = "fa-house";
+        public const string Link = "fa-link";
         public const string MagnifyingGlass = "fa-magnifying-glass";
         public const string Music = "fa-music";
         public const string Save = "fa-save";
