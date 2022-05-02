@@ -21,25 +21,7 @@
                     </SpaceItem>
                     
                     <SpaceItem Class="movieDetails">
-                        <Space Size=@(("8", "4")) Wrap Align="start">
-                            <SpaceItem>
-                                <div class="certification">@Movie.certification</div>
-                            </SpaceItem>
-                            
-                            <SpaceItem>
-                                <Popover ContentTemplate="@_releaseContent" Title="Release Dates" Placement="@Placement.Bottom" Trigger="@(new[] {Trigger.Hover})">
-                                    <div class="release">@Movie.year</div>
-                                </Popover>
-                            </SpaceItem>
-                            
-                            <SpaceItem>
-                                <div class="runtime">@Movie.runtimeDisplay</div>
-                            </SpaceItem>
-                            
-                            <SpaceItem>
-                                <MovieLinksPopover Movie="@Movie"/>
-                            </SpaceItem>
-                        </Space>
+                        <MovieDetails Movie="@Movie" />
                     </SpaceItem>
                     
                     <SpaceItem>
@@ -72,11 +54,4 @@
 
     public Image Poster => Movie?.images?.FirstOrDefault(x => x.coverType == "poster");
     public Image Fanart => Movie?.images?.FirstOrDefault(x => x.coverType == "fanart");
-
-    private RenderFragment _releaseContent =>
-        @<div>
-            <p><b>Theater Release Date:</b>@Movie.inCinemasDisplay</p>
-            <p><b>Physical Release Date:</b> @Movie.physicalReleaseDisplay</p>
-            <p><b>Digital Release Date:</b>@Movie.digitalReleaseDisplay</p>
-        </div>;
 }

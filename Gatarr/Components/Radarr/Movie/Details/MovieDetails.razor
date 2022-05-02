@@ -1,0 +1,34 @@
+﻿@using Gatarr.Models.Radarr
+<Space Size=@(("8", "4")) Wrap Align="start">
+    <SpaceItem>
+        <div class="certification">@Movie.certification</div>
+    </SpaceItem>
+                            
+    <SpaceItem>
+        <Popover Title="Release Dates" Placement="@Placement.Bottom" Trigger="@(new[] {Trigger.Hover})">
+            <ContentTemplate>
+                <div>
+                    <p><b>Theater Release Date:</b>@Movie.inCinemasDisplay</p>
+                    <p><b>Physical Release Date:</b> @Movie.physicalReleaseDisplay</p>
+                    <p><b>Digital Release Date:</b>@Movie.digitalReleaseDisplay</p>
+                </div>
+            </ContentTemplate>
+            <ChildContent>
+                <div class="release">@Movie.year</div>
+            </ChildContent>
+        </Popover>
+    </SpaceItem>
+                            
+    <SpaceItem>
+        <div class="runtime">@Movie.runtimeDisplay</div>
+    </SpaceItem>
+                            
+    <SpaceItem>
+        <MovieLinksPopover Movie="@Movie"/>
+    </SpaceItem>
+</Space>
+
+@code {
+    [Parameter]
+    public MovieResource Movie { get; set; }
+}
