@@ -2,7 +2,7 @@
 @using Humanizer
 @using Image = Gatarr.Models.Shared.Image
 
-<div class="movieDetailsRoot">
+<div class="movieDetailsRoot" style="background-image: url(@Fanart?.remoteUrl)">
     <div class="fanArtOverlay" />
     <div class="movieDetailsContent">
         <Row>
@@ -22,32 +22,14 @@
                         <span class="runtime">@Movie.runtimeDisplay</span>
                     </div>
                     <MovieRatings Ratings="@Movie.ratings" />
-                    <div>
-                        <span>
-                            <div class="infoLabel">Path</div>
-                            <span class="info">@Movie.path</span>
-                        </span>
-                        <span>
-                            <div class="infoLabel">Status</div>
-                            <span class="info">@Movie.status</span>
-                        </span>
-                        <span>
-                            <div class="infoLabel">Quality Profile</div>
-                            <span class="info">@Movie.qualityProfileId</span>
-                        </span>
-                        <span>
-                            <div class="infoLabel">Size</div>
-                            <span class="info">@Movie.sizeOnDisk.Bytes().Humanize()</span>
-                        </span>
-                        <span>
-                            <div class="infoLabel">Studio</div>
-                            <span class="info">@Movie.studio</span>
-                        </span>
-                        <span>
-                            <div class="infoLabel">Genres</div>
-                            <span class="info">@string.Join(", ", @Movie.genres)</span>
-                        </span>
-                    </div>
+                    <Space Size=@(("8", "16")) Wrap Align="start">
+                        <LabelledTextField Label="Path" Value="@Movie.path" />
+                        <LabelledTextField Label="Status" Value="@Movie.status" />
+                        <LabelledTextField Label="Quality Profile" Value="@Movie.qualityProfileId.ToString()" />
+                        <LabelledTextField Label="Size" Value="@Movie.sizeOnDisk.Bytes().Humanize()" />
+                        <LabelledTextField Label="Studio" Value="@Movie.studio" />
+                        <LabelledTextField Label="Genres" Value="@string.Join(", ", Movie.genres)" />
+                    </Space>
                     <div class="overview">
                         <span>@Movie.overview</span>
                     </div>
