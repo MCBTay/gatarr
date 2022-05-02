@@ -1,0 +1,17 @@
+﻿.infoLabel {
+    margin-bottom: -2px;
+    color: #909293;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+span .info {
+    font-weight: 300;
+    font-size: 17px;
+    color: #fff;
+    white-space: nowrap;
+    line-height: 1;
+    cursor: default;
+    padding: 3px 7px;
+    margin: 5px 10px 5px 0;
+}
