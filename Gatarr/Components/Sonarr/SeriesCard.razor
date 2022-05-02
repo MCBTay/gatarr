@@ -3,11 +3,22 @@
 
 <div class="series">
     <a href="/sonarr/series/@Series.id">
-        <Card Hoverable Style="width: 200px;" Cover="GetPosterTemplate()">
+        <Card Hoverable Style="width: 200px;">
+            <Cover>
+                <img alt="poster" class="poster" src="@PosterUrl" />
+                <div class="@GetFileCountClass()">@EpisodeFiles / @TotalEpisodes</div>
+                <Progress
+                    Percent="@EpisodePercentage"
+                    ShowInfo="false"
+                    StrokeLinecap="@ProgressStrokeLinecap.Square">
+                </Progress>
+            </Cover>
             <Body>
             <div>
-                <div class="seriesTitle">@Series.title (@Series.year)</div>
-                <div class="runtime">@Series.runtime.Minutes().Humanize(precision: 2)</div>
+                <div class="seriesTitle">@Series.title</div>
+                <div class="years">@GetYearText()</div>
+                <div class="seasonsCount">@Series.seasons.Count Seasons (@Series.seasonCount)</div>
+                <div class="runtime">@Series.runtime.Minutes().Humanize(precision: 2) / episode</div>
             </div>
             </Body>
         </Card>
@@ -18,8 +29,31 @@
     [Parameter]
     public Models.Sonarr.Series Series { get; set; }
 
-    public RenderFragment GetPosterTemplate()
+    private string PosterUrl => Series?.images?.FirstOrDefault(x => x.coverType == "poster")?.remoteUrl ?? string.Empty;
+
+    private int EpisodeFiles => Series.seasons.Sum(x => x.statistics.episodeFileCount);
+    private int TotalEpisodes => Series.seasons.Sum(x => x.statistics.episodeCount);
+    private float EpisodePercentage => (((float) EpisodeFiles) / ((float) TotalEpisodes)) * 100;
+
+    private string GetFileCountClass()
     {
-        return @<img alt="poster" class="poster" src="@Series?.images?.FirstOrDefault(x => x.coverType == "poster").remoteUrl" />;
+        var fileCountClass = "fileCount";
+
+        if (EpisodeFiles == TotalEpisodes)
+        {
+            fileCountClass += " gotThemAll";
+        }
+
+        return fileCountClass;
+    }
+
+    private string GetYearText()
+    {
+        if (Series.firstAired.Year == Series.previousAiring.Year)
+        {
+            return Series.year.ToString();
+        }
+        
+        return $"{Series.firstAired.Year} - {Series.previousAiring.Year}";
     }
 }

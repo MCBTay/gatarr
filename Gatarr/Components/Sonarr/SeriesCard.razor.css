@@ -1,0 +1,36 @@
+﻿.series .seriesTitle,
+.series .years,
+.series .seasonsCount,
+.series .runtime {
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.series .seriesTitle {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.series .years,
+.series .seasonsCount,
+.series .runtime {
+    font-size: 12px;
+}
+
+.series .ant-card-body {
+    padding: 10px;
+}
+
+.series .fileCount {
+    font-size: 12px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    background: red;
+}
+
+.series .gotThemAll {
+    background: green;
+}
