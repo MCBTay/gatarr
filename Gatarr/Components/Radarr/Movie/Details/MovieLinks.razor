@@ -1,0 +1,42 @@
+﻿@using Gatarr.Models
+@using Gatarr.Models.Radarr
+
+<Popover
+    Placement="@Placement.Bottom"
+    Trigger="@(new[] {Trigger.Hover})">
+    <ContentTemplate>
+        <a href="@tmdbLink" target="_blank">
+            <Button Type="@ButtonType.Primary">TMDb</Button>
+        </a>
+        <a href="@traktLink" target="_blank">
+            <Button Type="@ButtonType.Primary">Trakt</Button>
+        </a>
+        <a href="@letterboxdLink" target="_blank">
+            <Button Type="@ButtonType.Primary">Letterboxd</Button>
+        </a>
+        <a href="@imdbLink" target="_blank">
+            <Button Type="@ButtonType.Primary">IMDb</Button>
+        </a>
+        <a href="@movieChatLink" target="_blank">
+            <Button Type="@ButtonType.Primary">Movie Chat</Button>
+        </a>
+        <a href="@trailerLink" target="_blank">
+            <Button Type="@ButtonType.Primary" Danger="true">Trailer</Button>
+        </a>
+    </ContentTemplate>
+    <ChildContent>
+        <span class="fa @FontAwesomeConstants.Link"/>
+    </ChildContent>
+</Popover>
+
+@code {
+    [Parameter]
+    public MovieResource Movie { get; set; }
+
+    private string tmdbLink => $"https://www.themoviedb.org/movie/{Movie.tmdbId}";
+    private string traktLink => $"https://trakt.tv/search/tmdb/{Movie.tmdbId}?id_type=movie";
+    private string letterboxdLink => $"https://letterboxd.com/tmdb/{Movie.tmdbId}";
+    private string imdbLink => $"https://imdb.com/title/{Movie.imdbId}/";
+    private string movieChatLink => $"https://moviechat.org/{Movie.imdbId}/";
+    private string trailerLink => $"https://www.youtube.com/watch?v={Movie.youTubeTrailerId}/";
+}
