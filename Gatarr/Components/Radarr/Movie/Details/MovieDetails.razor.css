@@ -1,5 +1,7 @@
 ﻿.movie,
-.movie h1 {
+.movie h1,
+.movie span,
+.movie div {
     color: white;
 }
 
@@ -8,7 +10,7 @@
 }
 
 .certification {
-    margin-right: 15px;
+    /*margin-right: 15px;*/
     padding: 0 5px;
     border: 1px solid;
     border-radius: 5px;

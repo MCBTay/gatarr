@@ -5,42 +5,64 @@
 <div class="movieDetailsRoot" style="background-image: url(@Fanart?.remoteUrl)">
     <div class="fanArtOverlay" />
     <div class="movieDetailsContent">
-        <Row>
+        @*<Row>*@
             <GridCol Span="4">
                 <Image Class="moviePoster" Src="@Poster?.remoteUrl" />
             </GridCol>
             <GridCol Span="20">
-                <div class="movie">
-                    <h1>@Movie.title</h1>
-                    <div class="movieDetails">
-                        <span class="certification">@Movie.certification</span>
-                        
-                        <Popover ContentTemplate="@_releaseContent" Title="Release Dates" Placement="@Placement.Bottom" Trigger="@(new[] { Trigger.Hover })">
-                            <span class="release">@Movie.year</span>
-                        </Popover>
-
-                        <span class="runtime">@Movie.runtimeDisplay</span>
-                        
-                        <MovieLinks Movie="@Movie" />
-                    </div>
-
-                    <MovieRatings Ratings="@Movie.ratings" />
-
-                    <Space Size=@(("8", "16")) Wrap Align="start">
-                        <LabelledTextField Label="Path" Value="@Movie.path" />
-                        <LabelledTextField Label="Status" Value="@Movie.status" />
-                        <LabelledTextField Label="Quality Profile" Value="@Movie.qualityProfileId.ToString()" />
-                        <LabelledTextField Label="Size" Value="@Movie.sizeOnDisk.Bytes().Humanize()" />
-                        <LabelledTextField Label="Studio" Value="@Movie.studio" />
-                        <LabelledTextField Label="Genres" Value="@string.Join(", ", Movie.genres)" />
-                    </Space>
-
-                    <div class="overview">
+                <Space
+                    Size=@(("8", "4"))
+                    Align="Start"
+                    Direction="DirectionVHType.Vertical"
+                    Class="movie">
+                    
+                    <SpaceItem>
+                        <h1>@Movie.title</h1>
+                    </SpaceItem>
+                    
+                    <SpaceItem Class="movieDetails">
+                        <Space Size=@(("8", "4")) Wrap Align="start">
+                            <SpaceItem>
+                                <div class="certification">@Movie.certification</div>
+                            </SpaceItem>
+                            
+                            <SpaceItem>
+                                <Popover ContentTemplate="@_releaseContent" Title="Release Dates" Placement="@Placement.Bottom" Trigger="@(new[] {Trigger.Hover})">
+                                    <div class="release">@Movie.year</div>
+                                </Popover>
+                            </SpaceItem>
+                            
+                            <SpaceItem>
+                                <div class="runtime">@Movie.runtimeDisplay</div>
+                            </SpaceItem>
+                            
+                            <SpaceItem>
+                                <MovieLinksPopover Movie="@Movie"/>
+                            </SpaceItem>
+                        </Space>
+                    </SpaceItem>
+                    
+                    <SpaceItem>
+                        <MovieRatings Ratings="@Movie.ratings"/>
+                    </SpaceItem>
+                    
+                    <SpaceItem>
+                        <Space Size=@(("8", "4")) Wrap Align="start">
+                            <LabelledTextField Label="Path" Value="@Movie.path"/>
+                            <LabelledTextField Label="Status" Value="@Movie.status"/>
+                            <LabelledTextField Label="Quality Profile" Value="@Movie.qualityProfileId.ToString()"/>
+                            <LabelledTextField Label="Size" Value="@Movie.sizeOnDisk.Bytes().Humanize()"/>
+                            <LabelledTextField Label="Studio" Value="@Movie.studio"/>
+                            <LabelledTextField Label="Genres" Value="@string.Join(", ", Movie.genres)"/>
+                        </Space>
+                    </SpaceItem>
+                    
+                    <SpaceItem Class="overview">
                         <span>@Movie.overview</span>
-                    </div>
-                </div>
+                    </SpaceItem>
+                </Space>
             </GridCol>
-        </Row>
+        @*</Row>*@
     </div>
 </div>
 
