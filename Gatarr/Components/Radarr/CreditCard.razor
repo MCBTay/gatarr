@@ -2,26 +2,30 @@
 @using Image = Gatarr.Models.Shared.Image
 
 <div class="credit">
-    <Card Hoverable Style="width: 127px" Cover="GetHeadshotTemplate()">
-        <div class="personName">@credit.personName</div>
-        @if (!string.IsNullOrEmpty(credit.character))
-        {
-            <div class="character">@credit.character</div>
-        }
-        @if (!string.IsNullOrEmpty(credit.job))
-        {
-            <div class="job">@credit.job</div>
-        }
-    </Card>
+    <a href="@tmdbLink" target="_blank">
+        <Card Hoverable Style="width: 127px" Cover="GetHeadshotTemplate()">
+            <div class="personName">@credit.personName</div>
+            @if (!string.IsNullOrEmpty(credit.character))
+            {
+                <div class="character">@credit.character</div>
+            }
+            @if (!string.IsNullOrEmpty(credit.job))
+            {
+                <div class="job">@credit.job</div>
+            }
+        </Card>
+    </a>
 </div>
 
 @code {
     [Parameter]
     public Credit credit { get; set; }
 
-    public Image Headshot => credit?.images?.FirstOrDefault(x => x.coverType == "headshot");
+    private Image Headshot => credit?.images?.FirstOrDefault(x => x.coverType == "headshot");
 
-    public RenderFragment GetHeadshotTemplate()
+    private string tmdbLink => $"https://www.themoviedb.org/person/{credit.personTmdbId}";
+
+    private RenderFragment GetHeadshotTemplate()
     {
         if (Headshot == null)
         {
@@ -30,5 +34,4 @@
         
         return @<img alt="headshot" class="crewHeadshot" src="@Headshot.url"/>;
     }
-
 }
