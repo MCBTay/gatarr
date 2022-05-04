@@ -42,15 +42,5 @@ namespace Gatarr.Models.Radarr
         public MovieFile movieFile { get; set; }
         public int id { get; set; }
         public Collection collection { get; set; }
-
-        #region Display Properties
-        public string url => $"/radarr/movies/{id}";
-        public string sizeOnDiskDisplay => sizeOnDisk.Bytes().Humanize();
-        public string runtimeDisplay => runtime.Minutes().Humanize(precision: 2);
-
-        public string inCinemasDisplay => inCinemas.ToOrdinalWords();
-        public string physicalReleaseDisplay => physicalRelease.ToOrdinalWords();
-        public string digitalReleaseDisplay => digitalRelease.ToOrdinalWords();
-        #endregion
     }
 }
