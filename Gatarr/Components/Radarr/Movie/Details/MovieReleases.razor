@@ -1,0 +1,36 @@
+﻿@using Gatarr.Models
+@using Gatarr.Models.Radarr
+@using Humanizer
+
+<table>
+    <tbody>
+    @if (Movie.inCinemas != DateTime.MinValue)
+    {
+        <tr>
+            <td><span class="fa @FontAwesomeConstants.Ticket"/></td>
+            <td class="label">@Movie.inCinemas.ToOrdinalWords()</td>
+        </tr>
+    }
+
+    @if (Movie.physicalRelease != DateTime.MinValue)
+    {
+        <tr>
+            <td><span class="fa @FontAwesomeConstants.CompactDisc"/></td>
+            <td class="label">@Movie.physicalRelease.ToOrdinalWords()</td>
+        </tr>
+    }
+
+    @if (Movie.digitalRelease != DateTime.MinValue)
+    {
+        <tr>
+            <td><span class="fa @FontAwesomeConstants.FileVideo"/></td>
+            <td class="label">@Movie.digitalRelease.ToOrdinalWords()</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public MovieResource Movie { get; set; }
+}
