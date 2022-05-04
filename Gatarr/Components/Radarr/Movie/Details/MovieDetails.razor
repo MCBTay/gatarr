@@ -1,4 +1,5 @@
 ﻿@using Gatarr.Models.Radarr
+@using Humanizer
 
 <Space Size=@(("8", "4")) Wrap Align="start" Class="details">
     <SpaceItem>
@@ -8,11 +9,7 @@
     <SpaceItem>
         <Popover Title="Release Dates" Placement="@Placement.Bottom" Trigger="@(new[] {Trigger.Hover})">
             <ContentTemplate>
-                <div>
-                    <p><b>Theater Release Date:</b>@Movie.inCinemasDisplay</p>
-                    <p><b>Physical Release Date:</b> @Movie.physicalReleaseDisplay</p>
-                    <p><b>Digital Release Date:</b>@Movie.digitalReleaseDisplay</p>
-                </div>
+                <MovieReleases Movie="@Movie" />
             </ContentTemplate>
             <ChildContent>
                 <div class="release">@Movie.year</div>
@@ -21,7 +18,7 @@
     </SpaceItem>
                             
     <SpaceItem>
-        <div class="runtime">@Movie.runtimeDisplay</div>
+        <div class="runtime">@Movie.runtime.Minutes().Humanize(precision: 2)</div>
     </SpaceItem>
                             
     <SpaceItem>

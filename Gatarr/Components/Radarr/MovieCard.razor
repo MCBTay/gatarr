@@ -1,7 +1,8 @@
-﻿@using Gatarr.Models.Radarr
+﻿@using Gatarr.Models
+@using Gatarr.Models.Radarr
+@using Gatarr.Components.Radarr.Movie.Details;
 @using Humanizer
 @using Microsoft.AspNetCore.Http.Extensions
-@using Gatarr.Models
 
 <div class="movie">
     <a href="/radarr/movies/@Movie.id">
@@ -11,30 +12,7 @@
                 <div class="movieTitle">@Movie.title (@Movie.year)</div>
                 <div class="runtime">@Movie.runtime.Minutes().Humanize(precision: 2)</div>
                 
-                <table style="margin-left: auto; margin-right: auto;">
-                    <tbody>
-                        <tr>
-                            <td style="text-align: center"><span class="fa @FontAwesomeConstants.Ticket" /></td>
-                            <td class="inCinemas">@Movie.inCinemas.ToOrdinalWords()</td>
-                        </tr>
-
-                        @if (Movie.physicalRelease != DateTime.MinValue)
-                        {
-                            <tr>
-                                <td style="text-align: center"><span class="fa @FontAwesomeConstants.CompactDisc"/></td>
-                                <td class="physicalRelease">@Movie.physicalRelease.ToOrdinalWords()</td>
-                            </tr>
-                        }
-
-                        @if (Movie.digitalRelease != DateTime.MinValue)
-                        {
-                            <tr>
-                                <td style="text-align: center"><span class="fa @FontAwesomeConstants.FileVideo"/></td>
-                                <td class="physicalRelease">@Movie.digitalRelease.ToOrdinalWords()</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                <MovieReleases Movie="@Movie" />
             </div>
             </Body>
         </Card>
