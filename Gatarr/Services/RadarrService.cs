@@ -4,7 +4,6 @@ namespace Gatarr.Services
 {
     public interface IRadarrService : IArrService
     {
-        Task<HttpResponseMessage> GetLog();
         Task<List<MovieResource>> GetMovies();
         Task<MovieResource> GetMovie(string id);
         Task<List<Credit>> GetCredits(string id);
@@ -47,11 +46,6 @@ namespace Gatarr.Services
             {
                 return false;
             }
-        }
-
-        public async Task<HttpResponseMessage> GetLog()
-        {
-            return await HttpClient.GetAsync("log");
         }
 
         public async Task<List<MovieResource>> GetMovies()
