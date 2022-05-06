@@ -1,8 +1,9 @@
 ﻿@using Gatarr.Models
 @using Gatarr.Models.Radarr
 @using Humanizer
+@using System.ComponentModel.DataAnnotations
 
-<Popover Title="Release Dates" Placement="@Placement.Bottom" Trigger="@(new[] {Trigger.Hover})">
+<Popover Title="Release Dates" Placement="@Placement.Bottom" Trigger="@(new[] {Trigger.Hover})" Style="@Style">
     <ContentTemplate>
         <table>
             <tbody>
@@ -40,4 +41,7 @@
 @code {
     [Parameter]
     public MovieResource Movie { get; set; }
+
+    [Parameter]
+    public string Style { get; set; }
 }
