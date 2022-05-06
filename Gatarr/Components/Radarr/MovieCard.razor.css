@@ -1,8 +1,6 @@
-﻿.movie .movieTitle,
-.movie .runtime,
-.movie .inCinemas,
-.movie .physicalRelease,
-.movie .digitalRelease {
+﻿.movieTitle,
+.runtime,
+::deep .release {
     font-size: 14px;
     text-align: center;
     white-space: nowrap;
@@ -10,18 +8,15 @@
     text-overflow: ellipsis;
 }
 
-.movie .runtime,
-.movie .inCinemas,
-.movie .physicalRelease,
-.movie .digitalRelease {
+.runtime,
+::deep .release {
     font-size: 12px;
 }
 
-.movie table td .fa {
-    font-size: 14px;
-    margin-right: 5px;
+::deep .release {
+    margin: 0 auto;
 }
 
-.movie .ant-card-body {
+.ant-card-body {
     padding: 10px;
 }

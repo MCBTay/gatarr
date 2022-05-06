@@ -8,12 +8,11 @@
     <a href="/radarr/movies/@Movie.id">
         <Card Hoverable Style="width: 200px;" Cover="GetPosterTemplate()">
             <Body>
-            <div>
-                <div class="movieTitle">@Movie.title (@Movie.year)</div>
-                <div class="runtime">@Movie.runtime.Minutes().Humanize(precision: 2)</div>
-                
-                <MovieReleases Movie="@Movie" />
-            </div>
+                <div>
+                    <div class="movieTitle">@Movie.title</div>
+                    <MovieReleasesPopover Movie="@Movie" Style="width: 100%"/>
+                    <div class="runtime">@Movie.runtime.Minutes().Humanize(precision: 2)</div>
+                </div>
             </Body>
         </Card>
     </a>
