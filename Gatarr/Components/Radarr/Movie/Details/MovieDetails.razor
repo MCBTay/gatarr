@@ -7,14 +7,7 @@
     </SpaceItem>
                             
     <SpaceItem>
-        <Popover Title="Release Dates" Placement="@Placement.Bottom" Trigger="@(new[] {Trigger.Hover})">
-            <ContentTemplate>
-                <MovieReleases Movie="@Movie" />
-            </ContentTemplate>
-            <ChildContent>
-                <div class="release">@Movie.year</div>
-            </ChildContent>
-        </Popover>
+        <MovieReleasesPopover Movie="@Movie" />
     </SpaceItem>
                             
     <SpaceItem>
