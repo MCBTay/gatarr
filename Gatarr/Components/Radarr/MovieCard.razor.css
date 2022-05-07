@@ -17,6 +17,6 @@
     margin: 0 auto;
 }
 
-.ant-card-body {
+::deep .ant-card-body {
     padding: 10px;
 }
