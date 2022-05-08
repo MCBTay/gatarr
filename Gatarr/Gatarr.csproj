@@ -12,8 +12,6 @@
     <PackageReference Include="AntDesign" Version="0.10.5" />
     <PackageReference Include="Awesome.Net.WritableOptions" Version="3.0.0" />
     <PackageReference Include="Humanizer" Version="2.14.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
   </ItemGroup>
